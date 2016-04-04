@@ -16,7 +16,7 @@ The bundle should be installed through composer.
 ```json
 {
     "require": {
-        "aboutcoders/scheduler-bundle": "dev-master",
+        "aboutcoders/scheduler-bundle": "~1.0"
     }
 }
 ```
