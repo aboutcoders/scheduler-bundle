@@ -9,6 +9,8 @@ This bundle cannot be used *out of the box* but requires that you define your ow
 
 Add the AbcSchedulerBundle to your `composer.json` file
 
+Build Status: [![Build Status](https://travis-ci.org/aboutcoders/scheduler-bundle.svg?branch=master)](https://travis-ci.org/aboutcoders/scheduler-bundle)
+
 ```json
 {
     "require": {
