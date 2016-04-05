@@ -1,17 +1,13 @@
-Scheduler Bundle
-================
+AbcSchedulerBundle
+==================
 
-##Overview
+A symfony bundle that allows you define schedules for recurring events which will be notified using the [Symfony Event Dispatcher](http://symfony.com/doc/current/components/event_dispatcher/index.html).
 
-This bundle allows you define schedules for recurring events and uses the [Symfony Event Dispatcher](http://symfony.com/doc/current/components/event_dispatcher/index.html) to dispatch an event whenever a schedule is due.
+This bundle cannot be used *out of the box* but requires that you define your own schedule entities. Please take a look at the [AbcJobBundle](https://github.com/aboutcoders/job-bundle) to see a concrete usage of this bundle.
 
-Take a look at the [job-bundle](https://github.com/aboutcoders/job-bundle) if you want to see a concrete usage of this bundle.
+## Installation
 
-##Installation
-
-The bundle should be installed through composer.
-
-###Add the bundle to your composer.json file
+Add the AbcSchedulerBundle to your `composer.json` file
 
 ```json
 {
@@ -21,9 +17,7 @@ The bundle should be installed through composer.
 }
 ```
 
-###Update AppKernel.php of your Symfony Application
-
-Add the AbcSchedulerBundle to your kernel bootstrap sequence, in the `$bundles` array.
+Then include the bundle in the AppKernel.php class
 
 ```php
 public function registerBundles()
@@ -36,44 +30,39 @@ public function registerBundles()
 }
 ```
 
-###Setup Schedule Command
-
-The final step is to setup the schedule command. By executing this command schedules will be processed and an event will be dispatched whenever a schedule is due.
-
-You can setup a cron job that is executed every minute
-
-```shell
-php app/console abc:scheduler:start
-```
-
-Alternatively you can put the command under a process control system and like supervisord to have an infinite running process
-
-```shell
-php app/console abc:scheduler:start --infinite
-```
-
-##Basic Configuration
+## Configuration
 
 At the current point only doctrine is supported as ORM. However by changing the configuration you can also use a different persistence layer.
 
 Configure doctrine as database driver in config.yml
 
 ```yaml
+# app/config.yml
 abc_scheduler:
-  db_driver: orm
+    db_driver: orm
 ```
 
-##Setup Schedules
+In case you want to install and configure the bundle only because you are using it as a third party dependency (for example if you use it with the [AbcJobBundle](https://github.com/aboutcoders/job-bundle)) you are done now. Otherwise if you want to define your own schedule entities please go on and read what needs to be done.
 
-At this point the bundle is not fully working yet. You need to define your own Schedule entity classes and do some further configuration before you own schedules will be dispatched over the event dispatcher. The reason for this is that almost every application has different requirements on which additional information may be associated meaning is it for example a job that should be executed or a report which is created or something else.
+## Setup Custom Schedules
 
-#### Create you own Schedule class
+At this point the bundle is not fully working yet. You need to define your own Schedule entity classes and do some further configuration before you own schedules will be dispatched with the [Symfony Event Dispatcher](http://symfony.com/doc/current/components/event_dispatcher/index.html). The reason for this is that almost every application has different requirements on which additional attributes must be associated with a schedule.
 
-Defining your own schedule class is easy. The bundle relies on doctrine's concept of a [mapped superclass](http://doctrine-orm.readthedocs.org/en/latest/reference/inheritance-mapping.html). Using this your own entity class inherits all the properties which are necessary to make them work as schedules.
+This involves the following steps:
 
-Your Schedule class can live inside any bundle in your application. For example, if you work at "Acme" company, then you might create a bundle called AcmScheduleBundle and place your Schedule class in it.
+1. Create the schedule entity class
+2. Register the schedule's entity manager
+3. Register the schedule iterator
+4. Define and register a listener
+5. Setup the scheduler command
 
-If you're persisting your schedule via the Doctrine ORM, then your Schedule class should live in the Entity namespace of your bundle and look like this to start:
+### Step 1: Create the schedule entity class
+
+Defining your own schedule entity is easy. The bundle relies on doctrine's concept of a [Mapped Superclass](http://doctrine-orm.readthedocs.org/en/latest/reference/inheritance-mapping.html). With this your entity class will inherit all the required attributes to make them work as schedules.
+
+Your Schedule class can live inside any bundle within your application. For example, if you work at "Acme" company, then you might create a bundle called AcmSchedulerBundle and define your Schedule entity class in that.
+
+Assuming you are using the Doctrine ORM (which is the only supported persistence layer at this point), then your Schedule class should live in the Entity namespace of your bundle and look something like this:
 
 ```php
 namespace Acme\ScheduleBundle\Entity;
@@ -107,13 +96,13 @@ class Schedule extends BaseSchedule
 }
 ```
 
-Please refer to the doctrine documentation if you prefer to use YAML or XML over annotations to configure doctrine.
+Please refer to the [official documentation](http://doctrine-orm.readthedocs.org) of doctrine if you prefer to use YAML or XML over annotations.
 
-#### Register the schedule manager
+### Step 2: Register the schedule's entity manager
 
-The next step is to register the entity manager for the newly created schedule entity as a service within the service configuration. The easiest way to do this is by just using the implementation provided with this bundle. However you can of course provide your own implementation if you prefer.
+The next step is to register the entity manager for the newly created Schedule entity as a service within the service configuration. The easiest way to do this is by just using the implementation provided with this bundle. However you can of course provide your own implementation if you prefer to.
 
-In order to use the implementation provided with this bundle you just need to provide the following service configuration:
+To use the implementation provided with this bundle use the following configuration:
 
 ```xml
 <service id="acme_schedule_manager" class="Abc\Bundle\SchedulerBundle\Doctrine\ScheduleManager">
@@ -122,11 +111,11 @@ In order to use the implementation provided with this bundle you just need to pr
 </service>
 ```
 
-With this you will use the doctrine implementation of a schedule manager which uses the default doctrine entity manager. Note that the second argument of the service references the fully qualified name of your Schedule class.
+__Note:__ You need to replace `Acme\ScheduleBundle\Entity\Schedule` with the fully qualified class name of the entity class you created.
 
-#### Register the schedule iterator
+### Step 3: Register the schedule iterator
 
-The next step is to register an iterator for the schedule manager. To so you only have to define another service and tag it.
+The next step is to register an iterator for the schedule manager. This will be used by the symfony command to iterate over all schedules and dispatch an event in case it is due. To so you only have to define another service and tag it.
 
 ```xml
 <service id="acme_schedule_iterator" class="Abc\Bundle\SchedulerBundle\Iterator\ScheduleManagerScheduleIterator" public="true">
@@ -135,11 +124,13 @@ The next step is to register an iterator for the schedule manager. To so you onl
 </service>
 ```
 
-The first argument specifies the schedule manager to use, which in this case references the schedule manager we just defined. With the tag "abc.scheduler.iterator" this iterator gets registered within the bundle and thereby schedules will be continuously processed and an event gets notified when a schedule is due.
+Please note that the `argument` specifies the entity manager that was registered in the previous step. The tag `abc.scheduler.iterator` is used to register this iterator within the AbcSchedulerBundle so that schedules will be continuously processed and an event gets notified when a schedule is due.
 
-####Register a schedule listener
+### Step 4: Define and register a listener
 
-Whenever a schedule is due an event with the name "abc.schedule" of type Abc\Bundle\SchedulerBundle\Event\SchedulerEvent will be dispatched. So to actually get notified if one of your schedules is due you need to create a listener class.
+At this point everything is ready so that an event is dispatched if one of the schedules is due. However the listener is missing that will do something with it.
+
+Whenever a schedule is due an event with the name `abc.schedule` of type `Abc\Bundle\SchedulerBundle\Event\SchedulerEvent` will be dispatched. To actually get notified if one of your schedules is due you need to create a listener class.
 
 ```php
 namespace Acme\ScheduleBundle\Listener;
@@ -158,7 +149,9 @@ class MyListener
 }
 ```
 
-This listener class finally needs to be registered within the service configuration.
+__Note:__ Please note the `instanceof` check in this example. It is important to add this in case you are working with different schedule entities or in case you are using third party dependencies that defines schedule entities.
+
+This listener class finally needs to be registered within the service container.
 
 ```xml
 <service id="acme_schedule_listener" class="Acme\ScheduleBundle\Listener\MyListener">
@@ -166,11 +159,30 @@ This listener class finally needs to be registered within the service configurat
 </service>
 ```
 
-The method name specified in the attribute must match the name of the method in the listener class.
+Please note that the method name specified in the attribute must match the name of the method in the listener class.
 
-##Creating a schedule
+### Step 5: Setup the scheduler command
 
-A schedule is defined by its type and expression each being a string. At the current point there are two types supported: "cron" and "timestamp".
+At this point everything should be working. The only missing part is invoking the scheduler command which will loop over all registered iterators and process their schedules. You can invoke this command manually like follows:
+
+```shell
+php app/console abc:scheduler:start
+```
+
+However this command cannot be used or started as it is in a production environment. You either need to setup a cron job that will invoke this command every minute or, and this is the recommended way, you setup a process control system like supervisord.
+
+```shell
+php app/console abc:scheduler:start --iteration=250
+```
+
+__Note:__ If you use a process control system like supervisord it is recommended to set an iteration limit. Reason for this is that memory consumption grows over the time and thus at some point you will get a `memory_limit_exceeded` sooner or later.
+
+
+## Basic Usage
+
+### Creating a schedule
+
+A schedule is defined by its type and expression each defined as string. At the current point there are two types supported: `cron` and `timestamp`.
 
 Use your previously registered schedule manager class to create a new schedule that will be executed every minute:
 
@@ -183,9 +195,9 @@ $schedule->setExpression('* * * * *');
 $manager->update($schedule);
 ```
 
-#### CRON Schedules
+### CRON Schedules
 
-Schedules of type "cron" are defined by cron expressions as known in LINUX bases systems. The bundle uses the [PHP Cron Expression Parser](https://github.com/mtdowling/cron-expression/) library to parse these expressions. The parts of a CRON schedule are as follows:
+Schedules of type `cron` are defined by CRON expressions as known in LINUX bases systems. The bundle relies on the [PHP Cron Expression Parser](https://github.com/mtdowling/cron-expression/) library to parse these expressions. The parts of a CRON schedule are as follows:
 
     *    *    *    *    *    *
     -    -    -    -    -    -
@@ -197,35 +209,25 @@ Schedules of type "cron" are defined by cron expressions as known in LINUX bases
     |    +-------------------- hour (0 - 23)
     +------------------------- min (0 - 59)
 
-#### Timestamp Schedules
+### Timestamp Schedules
 
-Schedules of type "timestamp" are executed only once. The expression for it must be a UNIX timestamp value.
-
-##Registering Custom Schedule Processors
-
-You can easily define your own schedule types and register a processor for it. To do you first need to create a class that implements the interface Abc\Bundle\SchedulerBundle\Schedule\ProcessorInterface.
-
-This interface defines one method that you need to implement:
+Schedules of type `timestamp` are executed only once. The expression for it must be a UNIX timestamp value.
 
 ```php
-interface ProcessorInterface
-{
-    /**
-     * @param ScheduleInterface $schedule
-     * @param \DateTime|null    $currentDateTime
-     * @return boolean Whether the schedule is due or not
-     */
-    public function process(ScheduleInterface $schedule, \DateTime $currentDateTime = null);
-}
+$manager = $this->get('acme_schedule_manager');
+
+$schedule = $manager->create();
+$schedule->setType('datetime');
+$schedule->setExpression(new DateTime('2016-01-01 00:00:01'));
+$manager->update($schedule);
 ```
 
-The final step is to register this new processor. The only thing that needs to be done is to tag it:
+## How-tos
 
-```xml
-<service id="acme_custom_processor" class="Acme\ScheduleBundle\Processor\MyProcessor">
-   <tag name="abc.scheduler.processor" type="my_processor"/>
-</service>
-```
+- [How-to register a custom schedule type](./docs/how-to-register-a-custom-schedule-type.md)
 
-##ToDo
-- How to use a PCNTL controlled iterator in a continuous deployment setup
+## ToDo
+- Document how-to use a PCNTL controlled iterator in a continuous deployment setup
+- Introduce [myclabs/php-enum](https://github.com/myclabs/php-enum) for the schedule type
+- Provide factories in the service container that simplify schedule creation
+- Add option to enable/disable a schedule
