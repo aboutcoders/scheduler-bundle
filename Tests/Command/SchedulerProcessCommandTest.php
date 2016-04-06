@@ -17,12 +17,10 @@ use Abc\Bundle\SchedulerBundle\Model\Schedule;
 use Abc\Bundle\SchedulerBundle\Schedule\Exception\ScheduleException;
 use Abc\Bundle\SchedulerBundle\Schedule\Exception\SchedulerException;
 use Abc\Bundle\SchedulerBundle\Schedule\SchedulerInterface;
-use Abc\Bundle\SchedulerBundle\Tests\Iterator\ScheduleManagerScheduleIteratorTest;
 use Abc\ProcessControl\Controller;
-use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
  * @author Hannes Schulz <hannes.schulz@aboutcoders.com>
