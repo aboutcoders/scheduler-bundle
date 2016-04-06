@@ -25,7 +25,6 @@ cache:
 
 before_install:
   - wget http://getcomposer.org/composer.phar
-  -
   - if [ "$SYMFONY_VERSION" != "" ]; then php -d memory_limit=-1 composer.phar require symfony/symfony:${SYMFONY_VERSION} --no-update; fi;
 
 install: php -d memory_limit=-1 composer.phar install --no-interaction $COMPOSER_FLAGS
