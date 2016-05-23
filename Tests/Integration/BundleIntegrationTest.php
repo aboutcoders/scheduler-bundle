@@ -15,14 +15,11 @@ use Abc\Bundle\SchedulerBundle\Model\ScheduleManagerInterface;
 use Abc\Bundle\SchedulerBundle\Schedule\SchedulerInterface;
 use Abc\DemoBundle\Entity\Schedule;
 use Abc\DemoBundle\Listener\DemoListener;
-use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\Validator\Constraints\Uuid;
-use Symfony\Component\Validator\Constraints\UuidValidator;
 
 /**
  * @author Hannes Schulz <hannes.schulz@aboutcoders.com>

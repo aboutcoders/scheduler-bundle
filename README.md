@@ -5,11 +5,15 @@ A symfony bundle that allows you define schedules for recurring events which wil
 
 This bundle cannot be used *out of the box* but requires that you define your own schedule entities. Please take a look at the [AbcJobBundle](https://github.com/aboutcoders/job-bundle) to see a concrete usage of this bundle.
 
+Build Status: [![Build Status](https://travis-ci.org/aboutcoders/scheduler-bundle.svg?branch=master)](https://travis-ci.org/aboutcoders/scheduler-bundle)
+
 ## Installation
 
-Add the AbcSchedulerBundle to your `composer.json` file
+Follow the installation instructions of the required third party bundles:
 
-Build Status: [![Build Status](https://travis-ci.org/aboutcoders/scheduler-bundle.svg?branch=master)](https://travis-ci.org/aboutcoders/scheduler-bundle)
+* [AbcProcessControlBundle](https://github.com/aboutcoders/process-control-bundle)
+
+Add the AbcSchedulerBundle to your `composer.json` file
 
 ```json
 {
@@ -25,8 +29,7 @@ Then include the bundle in the AppKernel.php class
 public function registerBundles()
 {
     $bundles = array(
-        // ...
-        new \Abc\Bundle\SchedulerBundle\AbcSchedulerBundle(),
+        new Abc\Bundle\SchedulerBundle\AbcSchedulerBundle(),
         // ...
     );
 }

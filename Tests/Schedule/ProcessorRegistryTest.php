@@ -11,7 +11,6 @@
 namespace Abc\Bundle\SchedulerBundle\Tests\Schedule;
 
 use Abc\Bundle\SchedulerBundle\Schedule\ProcessorRegistry;
-use Abc\Bundle\SchedulerBundle\Schedule\ProcessorInterface;
 
 /**
  * @author Hannes Schulz <hannes.schulz@aboutcoders.com>

@@ -12,7 +12,7 @@ namespace Abc\Bundle\SchedulerBundle\Tests\Iterator;
 
 use Abc\Bundle\SchedulerBundle\Iterator\ControlledScheduleIterator;
 use Abc\Bundle\SchedulerBundle\Iterator\ScheduleIteratorInterface;
-use Abc\ProcessControl\Controller;
+use Abc\ProcessControl\ControllerInterface;
 
 /**
  * @author Hannes Schulz <hannes.schulz@aboutcoders.com>
@@ -20,7 +20,7 @@ use Abc\ProcessControl\Controller;
 class ControlledScheduleIteratorTest extends \PHPUnit_Framework_TestCase
 {
 
-    /** @var Controller|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var ControllerInterface|\PHPUnit_Framework_MockObject_MockObject */
     private $controller;
     /** @var ScheduleIteratorInterface|\PHPUnit_Framework_MockObject_MockObject */
     private $scheduleIterator;
@@ -29,7 +29,7 @@ class ControlledScheduleIteratorTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->controller = $this->getMock('Abc\ProcessControl\Controller');
+        $this->controller = $this->getMock('Abc\ProcessControl\ControllerInterface');
         $this->scheduleIterator  = $this->getMock('Abc\Bundle\SchedulerBundle\Iterator\ScheduleIteratorInterface');
         $this->subject = new ControlledScheduleIterator($this->controller, $this->scheduleIterator);
     }
@@ -115,4 +115,3 @@ class ControlledScheduleIteratorTest extends \PHPUnit_Framework_TestCase
         );
     }
 }
- 

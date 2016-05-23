@@ -10,23 +10,23 @@
 
 namespace Abc\Bundle\SchedulerBundle\Iterator;
 
-use Abc\ProcessControl\Controller;
+use Abc\ProcessControl\ControllerInterface;
 
 /**
  * @author Hannes Schulz <hannes.schulz@aboutcoders.com>
  */
 class ControlledScheduleIterator implements ScheduleIteratorInterface
 {
-    /** @var Controller */
+    /** @var ControllerInterface */
     private $controller;
     /** @var ScheduleIteratorInterface */
     private $scheduleIterator;
 
     /**
-     * @param Controller                $controller
+     * @param ControllerInterface       $controller
      * @param ScheduleIteratorInterface $scheduleIterator
      */
-    function __construct(Controller $controller, ScheduleIteratorInterface $scheduleIterator)
+    function __construct(ControllerInterface $controller, ScheduleIteratorInterface $scheduleIterator)
     {
         $this->controller       = $controller;
         $this->scheduleIterator = $scheduleIterator;

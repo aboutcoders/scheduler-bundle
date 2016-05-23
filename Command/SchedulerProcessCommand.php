@@ -10,12 +10,10 @@
 
 namespace Abc\Bundle\SchedulerBundle\Command;
 
-use Abc\Bundle\SchedulerBundle\Iterator\IteratorRegistry;
 use Abc\Bundle\SchedulerBundle\Iterator\IteratorRegistryInterface;
-use Abc\Bundle\SchedulerBundle\Model\ScheduleInterface;
 use Abc\Bundle\SchedulerBundle\Schedule\Exception\SchedulerException;
 use Abc\Bundle\SchedulerBundle\Schedule\SchedulerInterface;
-use Abc\ProcessControl\Controller;
+use Abc\ProcessControl\ControllerInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -46,24 +44,18 @@ class SchedulerProcessCommand extends ContainerAwareCommand
         $i                = 0;
         $startMemoryUsage = memory_get_usage(true);
 
-        try
-        {
-            do
-            {
-                if($i > 0)
-                {
+        try {
+            do {
+                if ($i > 0) {
                     usleep(5000000);
                 }
 
                 $i++;
                 $this->iterate($input, $output, $startMemoryUsage);
-            }
-            while(!$this->getProcessController()->doExit() && (!$input->getOption('iteration') || $i < (int)$input->getOption('iteration')));
+            } while (!$this->getProcessController()->doExit() && (!$input->getOption('iteration') || $i < (int)$input->getOption('iteration')));
 
             $output->writeln('End of iteration cycle');
-        }
-        catch(\Exception $e)
-        {
+        } catch (\Exception $e) {
             $output->writeln(sprintf("<error>KO - %s</error>", $e->getMessage()));
         }
     }
@@ -75,29 +67,20 @@ class SchedulerProcessCommand extends ContainerAwareCommand
      */
     protected function iterate(InputInterface $input, OutputInterface $output, $startMemoryUsage)
     {
-        foreach($this->getIteratorRegistry()->all() as $name => $iterator)
-        {
-            $date        = new \DateTime();
-            $memoryUsage = memory_get_usage(true);
-
-            try
-            {
-                $start = microtime(true);
-
+        foreach ($this->getIteratorRegistry()->all() as $name => $iterator) {
+            try {
                 $numOfProcessed = $this->getScheduler()->process($iterator);
 
-                $currentMemory = memory_get_usage(true);
-
-                $output->writeln(
-                    sprintf(
-                        "<comment>processed %s schedules of iterator %s</comment>",
-                        $numOfProcessed,
-                        $name
-                    )
-                );
-            }
-            catch(SchedulerException $e)
-            {
+                if ($numOfProcessed > 0) {
+                    $output->writeln(
+                        sprintf(
+                            "<comment>processed %s schedules of iterator %s</comment>",
+                            $numOfProcessed,
+                            $name
+                        )
+                    );
+                }
+            } catch (SchedulerException $e) {
                 $output->writeln(sprintf("<error>Failed to process %s out of %s schedules</error>", count($e->getScheduleExceptions()), $e->getNumOfProcessed()));
             }
         }
@@ -120,7 +103,7 @@ class SchedulerProcessCommand extends ContainerAwareCommand
     }
 
     /**
-     * @return Controller
+     * @return ControllerInterface
      */
     public function getProcessController()
     {

@@ -17,7 +17,7 @@ use Abc\Bundle\SchedulerBundle\Model\Schedule;
 use Abc\Bundle\SchedulerBundle\Schedule\Exception\ScheduleException;
 use Abc\Bundle\SchedulerBundle\Schedule\Exception\SchedulerException;
 use Abc\Bundle\SchedulerBundle\Schedule\SchedulerInterface;
-use Abc\ProcessControl\Controller;
+use Abc\ProcessControl\ControllerInterface;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -34,7 +34,7 @@ class SchedulerProcessCommandTest extends \PHPUnit_Framework_TestCase
 
     /** @var SchedulerInterface|\PHPUnit_Framework_MockObject_MockObject */
     private $scheduler;
-    /** @var Controller|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var ControllerInterface|\PHPUnit_Framework_MockObject_MockObject */
     private $controller;
     /** @var IteratorRegistry */
     private $registry;
@@ -42,7 +42,7 @@ class SchedulerProcessCommandTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $controller = $this->getMock('Abc\ProcessControl\Controller');
+        $controller = $this->getMock('Abc\ProcessControl\ControllerInterface');
         $scheduler        = $this->getMock('Abc\Bundle\SchedulerBundle\Schedule\SchedulerInterface');
         $registry         = new IteratorRegistry();
 

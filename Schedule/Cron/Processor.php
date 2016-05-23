@@ -12,7 +12,6 @@ namespace Abc\Bundle\SchedulerBundle\Schedule\Cron;
 
 use Abc\Bundle\SchedulerBundle\Model\ScheduleInterface;
 use Abc\Bundle\SchedulerBundle\Schedule\ProcessorInterface;
-use Cron\CronExpression;
 
 /**
  * Checks whether a schedule with a cron expression is due using the library "PHP Cron Expression Parser" by mtdowling.

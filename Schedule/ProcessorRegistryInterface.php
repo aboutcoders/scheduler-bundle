@@ -10,8 +10,6 @@
 
 namespace Abc\Bundle\SchedulerBundle\Schedule;
 
-use Abc\Bundle\SchedulerBundle\Schedule\ProcessorInterface;
-
 /**
  * A registry for objects of type ProcessorInterface
  *

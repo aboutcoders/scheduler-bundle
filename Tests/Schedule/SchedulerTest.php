@@ -10,7 +10,6 @@
 
 namespace Abc\Bundle\SchedulerBundle\Tests\Schedule;
 
-use Abc\Bundle\SchedulerBundle\Event\SchedulerEvent;
 use Abc\Bundle\SchedulerBundle\Event\SchedulerEvents;
 use Abc\Bundle\SchedulerBundle\Iterator\ScheduleManagerScheduleIterator;
 use Abc\Bundle\SchedulerBundle\Model\Schedule;
