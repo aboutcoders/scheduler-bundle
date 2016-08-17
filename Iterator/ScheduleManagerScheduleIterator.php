@@ -21,16 +21,34 @@ use Abc\Bundle\SchedulerBundle\Model\ScheduleManagerInterface;
 class ScheduleManagerScheduleIterator implements ScheduleIteratorInterface
 {
 
-    /** @var ScheduleManagerInterface */
+    /**
+     * @var ScheduleManagerInterface
+     */
     protected $scheduleManager;
-    /** @var int */
+
+    /**
+     * @var int
+     */
     protected $limit;
+
+    /**
+     * @var int
+     */
     protected $offset;
-    /** @var ScheduleInterface */
+
+    /**
+     * @var ScheduleInterface
+     */
     protected $current;
-    /** @var int */
+
+    /**
+     * @var int
+     */
     protected $position;
-    /** @var array */
+
+    /**
+     * @var array
+     */
     protected $buffer = array();
 
 
@@ -119,4 +137,4 @@ class ScheduleManagerScheduleIterator implements ScheduleIteratorInterface
 
         $this->offset += count($this->buffer);
     }
-} 
+}

@@ -10,6 +10,7 @@
 
 namespace Abc\Bundle\SchedulerBundle\Tests\Schedule;
 
+use Abc\Bundle\SchedulerBundle\Schedule\ProcessorInterface;
 use Abc\Bundle\SchedulerBundle\Schedule\ProcessorRegistry;
 
 /**
@@ -17,7 +18,9 @@ use Abc\Bundle\SchedulerBundle\Schedule\ProcessorRegistry;
  */
 class ProcessorRegistryTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var ProcessorRegistry */
+    /**
+     * @var ProcessorRegistry
+     */
     private $subject;
 
     public function setUp()
@@ -27,7 +30,7 @@ class ProcessorRegistryTest extends \PHPUnit_Framework_TestCase
 
     public function testRegister()
     {
-        $processor = $this->getMock('Abc\Bundle\SchedulerBundle\Schedule\ProcessorInterface');
+        $processor = $this->getMock(ProcessorInterface::class);
 
         $this->subject->register('foobar', $processor);
         $this->assertSame($processor, $this->subject->get('foobar'));

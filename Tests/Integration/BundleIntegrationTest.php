@@ -11,6 +11,7 @@
 namespace Abc\Bundle\SchedulerBundle\Tests\Integration;
 
 use Abc\Bundle\SchedulerBundle\Iterator\ScheduleIteratorInterface;
+use Abc\Bundle\SchedulerBundle\Model\ScheduleInterface;
 use Abc\Bundle\SchedulerBundle\Model\ScheduleManagerInterface;
 use Abc\Bundle\SchedulerBundle\Schedule\SchedulerInterface;
 use Abc\DemoBundle\Entity\Schedule;
@@ -26,13 +27,19 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class BundleIntegrationTest extends KernelTestCase
 {
-    /** @var Application */
+    /**
+     * @var Application
+     */
     private $application;
 
-    /** @var EntityManager */
+    /**
+     * @var EntityManager
+     */
     private $em;
 
-    /** @var ContainerInterface */
+    /**
+     * @var ContainerInterface
+     */
     private $container;
 
 
@@ -58,7 +65,9 @@ class BundleIntegrationTest extends KernelTestCase
 
     public function testScheduleInheritanceMapping()
     {
-        /** @var ScheduleManagerInterface $manager */
+        /**
+         * @var ScheduleManagerInterface $manager
+         */
         $manager = $this->container->get('abc.demo.schedule_manager');
 
         $schedule = $manager->create();
@@ -73,17 +82,21 @@ class BundleIntegrationTest extends KernelTestCase
 
         $this->assertCount(1, $schedules);
 
-        /** @var Schedule $schedule */
+        /**
+         * @var Schedule $schedule
+         */
         $schedule = $schedules[0];
 
-        $this->assertInstanceOf('Abc\Bundle\SchedulerBundle\Model\ScheduleInterface', $schedule);
+        $this->assertInstanceOf(ScheduleInterface::class, $schedule);
         $this->assertEquals('* * * * *', $schedule->getExpression());
     }
 
 
     public function testListenersAreNotified()
     {
-        /** @var ScheduleManagerInterface $manager */
+        /**
+         * @var ScheduleManagerInterface $manager
+         */
         $manager = $this->container->get('abc.demo.schedule_manager');
 
         $schedule = $manager->create();
@@ -91,12 +104,20 @@ class BundleIntegrationTest extends KernelTestCase
 
         $manager->save($schedule);
 
-        /** @var ScheduleIteratorInterface $iterator */
-        $iterator  = $this->container->get('abc.demo.iterator');
-        /** @var SchedulerInterface $scheduler */
+        /**
+         * @var ScheduleIteratorInterface $iterator
+         */
+        $iterator = $this->container->get('abc.demo.iterator');
+
+        /**
+         * @var SchedulerInterface $scheduler
+         */
         $scheduler = $this->container->get('abc.scheduler.scheduler');
-        /** @var DemoListener $listener */
-        $listener  = $this->container->get('abc.demo.listener');
+
+        /**
+         * @var DemoListener $listener
+         */
+        $listener = $this->container->get('abc.demo.listener');
 
         $scheduler->process($iterator);
 

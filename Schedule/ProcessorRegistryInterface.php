@@ -18,7 +18,7 @@ namespace Abc\Bundle\SchedulerBundle\Schedule;
 interface ProcessorRegistryInterface
 {
     /**
-     * @param string $type
+     * @param string             $type
      * @param ProcessorInterface $processor
      * @return void
      */
@@ -30,4 +30,4 @@ interface ProcessorRegistryInterface
      * @throws \InvalidArgumentException
      */
     public function get($type);
-} 
+}

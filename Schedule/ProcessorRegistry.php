@@ -17,7 +17,10 @@ namespace Abc\Bundle\SchedulerBundle\Schedule;
  */
 class ProcessorRegistry implements ProcessorRegistryInterface
 {
-    private $registry = array();
+    /**
+     * @var array
+     */
+    private $registry = [];
 
     /**
      * {@inheritDoc}

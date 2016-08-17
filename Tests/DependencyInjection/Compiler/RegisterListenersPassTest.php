@@ -12,6 +12,7 @@ namespace Abc\Bundle\SchedulerBundle\Tests\DependencyInjection\Compiler;
 
 use Abc\Bundle\SchedulerBundle\DependencyInjection\Compiler\RegisterListenersPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -33,7 +34,7 @@ class RegisterListenersPassTest extends \PHPUnit_Framework_TestCase
             'my_event_subscriber' => array(0 => array()),
         );
 
-        $definition = $this->getMock('Symfony\Component\DependencyInjection\Definition');
+        $definition = $this->getMock(Definition::class);
 
         $definition->expects($this->atLeastOnce())
             ->method('isPublic')
@@ -43,7 +44,7 @@ class RegisterListenersPassTest extends \PHPUnit_Framework_TestCase
             ->method('getClass')
             ->will($this->returnValue('stdClass'));
 
-        $builder = $this->getMock('Symfony\Component\DependencyInjection\ContainerBuilder');
+        $builder = $this->getMock(ContainerBuilder::class);
 
         $builder->expects($this->any())
             ->method('hasDefinition')
@@ -69,7 +70,7 @@ class RegisterListenersPassTest extends \PHPUnit_Framework_TestCase
             'my_event_subscriber' => array(0 => array()),
         );
 
-        $definition = $this->getMock('Symfony\Component\DependencyInjection\Definition');
+        $definition = $this->getMock(Definition::class);
 
         $definition->expects($this->atLeastOnce())
             ->method('isPublic')
@@ -77,9 +78,9 @@ class RegisterListenersPassTest extends \PHPUnit_Framework_TestCase
 
         $definition->expects($this->atLeastOnce())
             ->method('getClass')
-            ->will($this->returnValue('Abc\Bundle\SchedulerBundle\Tests\DependencyInjection\Compiler\SubscriberService'));
+            ->will($this->returnValue(SubscriberService::class));
 
-        $builder = $this->getMock('Symfony\Component\DependencyInjection\ContainerBuilder');
+        $builder = $this->getMock(ContainerBuilder::class);
 
         $builder->expects($this->any())
             ->method('hasDefinition')

@@ -24,7 +24,9 @@ use Doctrine\ORM\Mapping\Table;
  */
 class Schedule extends BaseSchedule
 {
-    /** @var string */
+    /**
+     * @var string
+     */
     protected $type = 'cron';
 
     /**

@@ -17,7 +17,6 @@ namespace Abc\Bundle\SchedulerBundle\Model;
  */
 interface ScheduleInterface
 {
-
     /**
      * @param string $type
      * @return void

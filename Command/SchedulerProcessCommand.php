@@ -24,7 +24,6 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class SchedulerProcessCommand extends ContainerAwareCommand
 {
-
     /**
      * {@inheritDoc}
      */

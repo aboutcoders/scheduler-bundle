@@ -15,7 +15,7 @@ namespace Abc\Bundle\SchedulerBundle\Iterator;
  */
 class IteratorRegistry implements IteratorRegistryInterface
 {
-    private $registry = array();
+    private $registry = [];
 
     /**
      * {@inheritDoc}
@@ -30,8 +30,7 @@ class IteratorRegistry implements IteratorRegistryInterface
      */
     public function get($name)
     {
-        if(!array_key_exists($name, $this->registry))
-        {
+        if (!array_key_exists($name, $this->registry)) {
             throw new \InvalidArgumentException(sprintf('An iterator for type "%s" is not registered', $name));
         }
 

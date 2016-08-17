@@ -10,6 +10,7 @@
 
 namespace Abc\Bundle\SchedulerBundle\Tests\Schedule;
 
+use Abc\Bundle\SchedulerBundle\Event\SchedulerEvent;
 use Abc\Bundle\SchedulerBundle\Event\SchedulerEvents;
 use Abc\Bundle\SchedulerBundle\Iterator\ScheduleManagerScheduleIterator;
 use Abc\Bundle\SchedulerBundle\Model\Schedule;
@@ -27,22 +28,36 @@ use Abc\Bundle\SchedulerBundle\Model\ScheduleManagerInterface;
  */
 class SchedulerTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var EventDispatcherInterface|\PHPUnit_Framework_MockObject_MockObject */
+    /**
+     * @var EventDispatcherInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
     private $dispatcher;
-    /** @var ProcessorRegistryInterface */
+
+    /**
+     * @var ProcessorRegistryInterface
+     */
     private $registry;
-    /** @var ProcessorInterface|\PHPUnit_Framework_MockObject_MockObject */
+
+    /**
+     * @var ProcessorInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
     private $processor;
-    /** @var ScheduleManagerInterface|\PHPUnit_Framework_MockObject_MockObject */
+
+    /**
+     * @var ScheduleManagerInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
     private $manager;
-    /** @var Scheduler */
+
+    /**
+     * @var Scheduler
+     */
     private $subject;
 
     public function setUp()
     {
-        $this->dispatcher = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
-        $this->manager    = $this->getMock('Abc\Bundle\SchedulerBundle\Model\ScheduleManagerInterface');
-        $this->processor  = $this->getMock('Abc\Bundle\SchedulerBundle\Schedule\ProcessorInterface');
+        $this->dispatcher = $this->getMock(EventDispatcherInterface::class);
+        $this->manager    = $this->getMock(ScheduleManagerInterface::class);
+        $this->processor  = $this->getMock(ProcessorInterface::class);
         $this->registry   = new ProcessorRegistry();
         $this->registry->register('type', $this->processor);
 
@@ -61,11 +76,11 @@ class SchedulerTest extends \PHPUnit_Framework_TestCase
 
         $this->dispatcher->expects($this->exactly(5))
             ->method('dispatch')
-            ->with(SchedulerEvents::SCHEDULE, $this->isInstanceOf('Abc\Bundle\SchedulerBundle\Event\SchedulerEvent'));
+            ->with(SchedulerEvents::SCHEDULE, $this->isInstanceOf(SchedulerEvent::class));
 
         $this->manager->expects($this->exactly(5))
             ->method('save')
-            ->with($this->isInstanceOf('Abc\Bundle\SchedulerBundle\Model\Schedule'));
+            ->with($this->isInstanceOf(Schedule::class));
 
         $numOfScheduled = $this->subject->process(new ScheduleManagerScheduleIterator($this->manager));
 

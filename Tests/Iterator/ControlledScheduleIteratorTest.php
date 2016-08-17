@@ -20,18 +20,26 @@ use Abc\ProcessControl\ControllerInterface;
 class ControlledScheduleIteratorTest extends \PHPUnit_Framework_TestCase
 {
 
-    /** @var ControllerInterface|\PHPUnit_Framework_MockObject_MockObject */
+    /**
+     * @var ControllerInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
     private $controller;
-    /** @var ScheduleIteratorInterface|\PHPUnit_Framework_MockObject_MockObject */
+
+    /**
+     * @var ScheduleIteratorInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
     private $scheduleIterator;
-    /** @var ControlledScheduleIterator */
+
+    /**
+     * @var ControlledScheduleIterator
+     */
     private $subject;
 
     public function setUp()
     {
-        $this->controller = $this->getMock('Abc\ProcessControl\ControllerInterface');
-        $this->scheduleIterator  = $this->getMock('Abc\Bundle\SchedulerBundle\Iterator\ScheduleIteratorInterface');
-        $this->subject = new ControlledScheduleIterator($this->controller, $this->scheduleIterator);
+        $this->controller       = $this->getMock(ControllerInterface::class);
+        $this->scheduleIterator = $this->getMock(ScheduleIteratorInterface::class);
+        $this->subject          = new ControlledScheduleIterator($this->controller, $this->scheduleIterator);
     }
 
     public function testCurrent()
@@ -75,12 +83,9 @@ class ControlledScheduleIteratorTest extends \PHPUnit_Framework_TestCase
             ->method('doExit')
             ->willReturn($doExit);
 
-        if($doExit)
-        {
+        if ($doExit) {
             $this->assertEquals(false, $this->subject->valid());
-        }
-        else
-        {
+        } else {
             $this->assertEquals($valid, $this->subject->valid());
         }
     }
@@ -107,11 +112,11 @@ class ControlledScheduleIteratorTest extends \PHPUnit_Framework_TestCase
      */
     public static function getBooleanArray()
     {
-        return array(
-            array(true, true),
-            array(true, false),
-            array(false, false),
-            array(false, true)
-        );
+        return [
+            [true, true],
+            [true, false],
+            [false, false],
+            [false, true]
+        ];
     }
 }

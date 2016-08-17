@@ -10,6 +10,7 @@
 
 namespace Abc\Bundle\SchedulerBundle\Tests\Model;
 
+use Abc\Bundle\SchedulerBundle\Model\Schedule;
 use Abc\Bundle\SchedulerBundle\Model\ScheduleManager;
 
 /**
@@ -24,11 +25,11 @@ class ScheduleManagerTest extends \PHPUnit_Framework_TestCase
 
         $manager->expects($this->once())
             ->method('getClass')
-            ->will($this->returnValue('Abc\Bundle\SchedulerBundle\Model\Schedule'));
+            ->will($this->returnValue(Schedule::class));
 
         $schedule = $manager->create();
 
-        $this->assertInstanceOf('Abc\Bundle\SchedulerBundle\Model\Schedule', $schedule);
+        $this->assertInstanceOf(Schedule::class, $schedule);
     }
 
     /**
@@ -36,7 +37,6 @@ class ScheduleManagerTest extends \PHPUnit_Framework_TestCase
      */
     protected function getManager()
     {
-        return $this->getMockForAbstractClass('Abc\Bundle\SchedulerBundle\Model\ScheduleManager');
+        return $this->getMockForAbstractClass(ScheduleManager::class);
     }
 }
- 

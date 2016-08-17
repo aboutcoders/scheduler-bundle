@@ -24,4 +24,4 @@ interface ExpressionFactoryInterface
      * @return CronExpression
      */
     public function create($expression);
-} 
+}

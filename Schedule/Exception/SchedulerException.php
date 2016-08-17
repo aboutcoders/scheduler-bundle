@@ -17,10 +17,20 @@ namespace Abc\Bundle\SchedulerBundle\Schedule\Exception;
  */
 class SchedulerException extends \Exception
 {
+    /**
+     * @var int
+     */
     private $numOfProcessed;
+
+    /**
+     * @var array
+     */
     private $scheduleExceptions;
 
-
+    /**
+     * @param string $numOfProcessed
+     * @param array  $scheduleExceptions
+     */
     public function __construct($numOfProcessed, array $scheduleExceptions)
     {
         $this->numOfProcessed = $numOfProcessed;

@@ -21,12 +21,15 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 class RegisterProcessorPass implements CompilerPassInterface
 {
-
-    /** @var string */
+    /**
+     * @var string
+     */
     protected $registryService;
-    /** @var string */
-    protected $tagName;
 
+    /**
+     * @var string
+     */
+    protected $tagName;
 
     /**
      * @param string $registryServiceName

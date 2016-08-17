@@ -18,7 +18,10 @@ use Abc\DemoBundle\Entity\Schedule;
  */
 class DemoListener
 {
-    protected $events = array();
+    /**
+     * @var array
+     */
+    protected $events = [];
 
 
     public function onSchedule(SchedulerEvent $event)

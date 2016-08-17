@@ -22,11 +22,19 @@ use Doctrine\Common\Persistence\ObjectRepository;
  */
 class ScheduleManager extends BaseScheduleManager
 {
-    /** @var string */
+    /**
+     * @var string
+     */
     protected $class;
-    /** @var ObjectManager */
+
+    /**
+     * @var ObjectManager
+     */
     protected $objectManager;
-    /** @var ObjectRepository */
+
+    /**
+     * @var ObjectRepository
+     */
     protected $repository;
 
     /**

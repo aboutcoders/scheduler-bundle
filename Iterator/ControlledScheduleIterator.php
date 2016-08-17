@@ -17,9 +17,14 @@ use Abc\ProcessControl\ControllerInterface;
  */
 class ControlledScheduleIterator implements ScheduleIteratorInterface
 {
-    /** @var ControllerInterface */
+    /**
+     * @var ControllerInterface
+     */
     private $controller;
-    /** @var ScheduleIteratorInterface */
+
+    /**
+     * @var ScheduleIteratorInterface
+     */
     private $scheduleIterator;
 
     /**
@@ -79,4 +84,4 @@ class ControlledScheduleIterator implements ScheduleIteratorInterface
     {
         return $this->scheduleIterator->getManager();
     }
-} 
+}

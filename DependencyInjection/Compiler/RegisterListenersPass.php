@@ -21,9 +21,19 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
  */
 class RegisterListenersPass implements CompilerPassInterface
 {
-
+    /**
+     * @var string
+     */
     private $dispatcherService;
+
+    /**
+     * @var string
+     */
     private $listenerTag;
+
+    /**
+     * @var string
+     */
     private $subscriberTag;
 
     /**

@@ -27,11 +27,19 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
  */
 class Scheduler implements SchedulerInterface
 {
-    /** @var ProcessorRegistryInterface */
+    /**
+     * @var ProcessorRegistryInterface
+     */
     protected $registry;
-    /** @var EventDispatcherInterface */
+
+    /**
+     * @var EventDispatcherInterface
+     */
     protected $dispatcher;
-    /** @var LoggerInterface */
+
+    /**
+     * @var LoggerInterface
+     */
     protected $logger;
 
     /**
@@ -59,7 +67,9 @@ class Scheduler implements SchedulerInterface
 
             try
             {
-                /** @var ScheduleInterface $schedule */
+                /**
+                 * @var ScheduleInterface $schedule
+                 */
                 if($this->registry->get($schedule->getType())->process($schedule))
                 {
                     $schedule->setScheduledAt(new \DateTime());

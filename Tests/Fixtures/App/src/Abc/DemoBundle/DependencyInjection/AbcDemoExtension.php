@@ -20,7 +20,6 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
  */
 class AbcDemoExtension extends Extension
 {
-
     /**
      * {@inheritDoc}
      */

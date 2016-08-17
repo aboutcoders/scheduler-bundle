@@ -17,7 +17,14 @@ use Abc\Bundle\SchedulerBundle\Model\ScheduleInterface;
  */
 class ScheduleException
 {
+    /**
+     * @var ScheduleInterface
+     */
     private $schedule;
+
+    /**
+     * @var \Exception
+     */
     private $exception;
 
     /**
@@ -45,4 +52,4 @@ class ScheduleException
     {
         return $this->exception;
     }
-} 
+}

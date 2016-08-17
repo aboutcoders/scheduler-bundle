@@ -23,4 +23,4 @@ interface ScheduleIteratorInterface extends \Iterator
      * @return ScheduleManagerInterface
      */
     public function getManager();
-} 
+}

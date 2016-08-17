@@ -14,6 +14,7 @@ use Abc\Bundle\SchedulerBundle\Command\SchedulerProcessCommand;
 use Abc\Bundle\SchedulerBundle\Iterator\IteratorRegistry;
 use Abc\Bundle\SchedulerBundle\Iterator\ScheduleManagerScheduleIterator;
 use Abc\Bundle\SchedulerBundle\Model\Schedule;
+use Abc\Bundle\SchedulerBundle\Model\ScheduleManagerInterface;
 use Abc\Bundle\SchedulerBundle\Schedule\Exception\ScheduleException;
 use Abc\Bundle\SchedulerBundle\Schedule\Exception\SchedulerException;
 use Abc\Bundle\SchedulerBundle\Schedule\SchedulerInterface;
@@ -21,32 +22,46 @@ use Abc\ProcessControl\ControllerInterface;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
  * @author Hannes Schulz <hannes.schulz@aboutcoders.com>
  */
 class SchedulerProcessCommandTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var ContainerInterface|\PHPUnit_Framework_MockObject_MockObject */
+    /**
+     * @var ContainerInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
     private $container;
-    /** @var Application */
+
+    /**
+     * @var Application
+     */
     private $application;
 
-    /** @var SchedulerInterface|\PHPUnit_Framework_MockObject_MockObject */
+    /**
+     * @var SchedulerInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
     private $scheduler;
-    /** @var ControllerInterface|\PHPUnit_Framework_MockObject_MockObject */
+
+    /**
+     * @var ControllerInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
     private $controller;
-    /** @var IteratorRegistry */
+
+    /**
+     * @var IteratorRegistry
+     */
     private $registry;
 
 
     public function setUp()
     {
-        $controller = $this->getMock('Abc\ProcessControl\ControllerInterface');
-        $scheduler        = $this->getMock('Abc\Bundle\SchedulerBundle\Schedule\SchedulerInterface');
+        $controller = $this->getMock(ControllerInterface::class);
+        $scheduler        = $this->getMock(SchedulerInterface::class);
         $registry         = new IteratorRegistry();
 
-        $this->container = $this->getMock('Symfony\Component\DependencyInjection\ContainerInterface');
+        $this->container = $this->getMock(ContainerInterface::class);
 
         $this->container->expects($this->any())
             ->method('get')
@@ -77,7 +92,7 @@ class SchedulerProcessCommandTest extends \PHPUnit_Framework_TestCase
         $command = new SchedulerProcessCommand();
         $command->setContainer($this->container);
 
-        $kernel = $this->getMock('Symfony\Component\HttpKernel\KernelInterface');
+        $kernel = $this->getMock(KernelInterface::class);
 
         $this->application = new Application($kernel);
         $this->application->add($command);
@@ -153,7 +168,7 @@ class SchedulerProcessCommandTest extends \PHPUnit_Framework_TestCase
     private function buildIterator($numOfSchedules)
     {
         $schedules = $this->createSchedules($numOfSchedules);
-        $manager   = $this->getMock('Abc\Bundle\SchedulerBundle\Model\ScheduleManagerInterface');
+        $manager   = $this->getMock(ScheduleManagerInterface::class);
         $this->initManager($manager, $schedules);
 
         return new ScheduleManagerScheduleIterator($manager);

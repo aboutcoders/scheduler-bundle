@@ -21,17 +21,25 @@ use Cron\CronExpression;
  */
 class ProcessorTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var ExpressionFactoryInterface|\PHPUnit_Framework_MockObject_MockObject */
+    /**
+     * @var ExpressionFactoryInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
     private $factory;
-    /** @var CronExpression|\PHPUnit_Framework_MockObject_MockObject */
+
+    /**
+     * @var CronExpression|\PHPUnit_Framework_MockObject_MockObject
+     */
     private $expression;
-    /** @var Processor */
+
+    /**
+     * @var Processor
+     */
     private $subject;
 
     public function setUp()
     {
-        $this->factory    = $this->getMock('Abc\Bundle\SchedulerBundle\Schedule\Cron\ExpressionFactoryInterface');
-        $this->expression = $this->getMockBuilder('Cron\CronExpression')->disableOriginalConstructor()->getMock();
+        $this->factory    = $this->getMock(ExpressionFactoryInterface::class);
+        $this->expression = $this->getMockBuilder(CronExpression::class)->disableOriginalConstructor()->getMock();
         $this->subject    = new Processor($this->factory);
     }
 

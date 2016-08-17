@@ -18,11 +18,19 @@ namespace Abc\Bundle\SchedulerBundle\Model;
 class Schedule implements ScheduleInterface
 {
 
-    /** @var string */
+    /**
+     * @var string
+     */
     protected $type;
-    /** @var string */
+
+    /**
+     * @var string
+     */
     protected $expression;
-    /** @var \DateTime */
+
+    /**
+     * @var \DateTime
+     */
     protected $scheduledAt;
 
     /**

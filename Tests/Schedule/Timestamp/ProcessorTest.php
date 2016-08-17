@@ -19,7 +19,9 @@ use Abc\Bundle\SchedulerBundle\Model\Schedule;
 class ProcessorTest extends \PHPUnit_Framework_TestCase
 {
 
-    /** @var Processor */
+    /**
+     * @var Processor
+     */
     private $subject;
 
     /**

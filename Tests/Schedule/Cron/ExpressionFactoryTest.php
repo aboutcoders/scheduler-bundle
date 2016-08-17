@@ -11,6 +11,7 @@
 namespace Abc\Bundle\SchedulerBundle\Tests\Schedule\Cron;
 
 use Abc\Bundle\SchedulerBundle\Schedule\Cron\ExpressionFactory;
+use Cron\CronExpression;
 
 /**
  * @author Hannes Schulz <hannes.schulz@aboutcoders.com>
@@ -22,7 +23,7 @@ class ExpressionFactoryTest extends \PHPUnit_Framework_TestCase
         $factory = new ExpressionFactory();
         $subject = $factory->create('* * * * *');
 
-        $this->assertInstanceOf('Cron\CronExpression', $subject);
+        $this->assertInstanceOf(CronExpression::class, $subject);
         $this->assertTrue($subject->isDue());
     }
 }

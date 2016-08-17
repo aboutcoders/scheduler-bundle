@@ -20,11 +20,10 @@ use Abc\Bundle\SchedulerBundle\Schedule\Exception\SchedulerException;
  */
 interface SchedulerInterface
 {
-
     /**
      * @param ScheduleIteratorInterface $scheduleIterator
      * @return int The number of schedules that were processed
      * @throws SchedulerException If processing of one or more schedules fails
      */
     public function process(ScheduleIteratorInterface $scheduleIterator);
-} 
+}

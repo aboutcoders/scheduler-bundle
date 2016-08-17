@@ -53,4 +53,4 @@ interface ScheduleManagerInterface
      */
     public function findSchedules($limit = null, $offset = null);
 
-} 
+}

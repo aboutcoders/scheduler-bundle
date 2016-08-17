@@ -20,7 +20,6 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
  */
 class AbcSchedulerExtension extends Extension
 {
-
     /**
      * {@inheritDoc}
      */

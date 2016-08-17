@@ -20,7 +20,6 @@ use Abc\Bundle\SchedulerBundle\Schedule\ProcessorInterface;
  */
 class Processor implements ProcessorInterface
 {
-
     /**
      * {@inheritDoc}
      */

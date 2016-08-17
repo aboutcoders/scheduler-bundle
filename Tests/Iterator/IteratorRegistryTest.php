@@ -11,6 +11,7 @@
 namespace Abc\Bundle\SchedulerBundle\Tests\Iterator;
 
 use Abc\Bundle\SchedulerBundle\Iterator\IteratorRegistry;
+use Abc\Bundle\SchedulerBundle\Iterator\ScheduleIteratorInterface;
 
 /**
  * @author Hannes Schulz <hannes.schulz@aboutcoders.com>
@@ -18,7 +19,9 @@ use Abc\Bundle\SchedulerBundle\Iterator\IteratorRegistry;
 class IteratorRegistryTest extends \PHPUnit_Framework_TestCase
 {
 
-    /** @var IteratorRegistry */
+    /**
+     * @var IteratorRegistry
+     */
     private $subject;
 
     public function setUp()
@@ -28,7 +31,7 @@ class IteratorRegistryTest extends \PHPUnit_Framework_TestCase
 
     public function testRegister()
     {
-        $iterator = $this->getMock('Abc\Bundle\SchedulerBundle\Iterator\ScheduleIteratorInterface');
+        $iterator = $this->getMock(ScheduleIteratorInterface::class);
 
         $this->subject->register('foobar', $iterator);
         $this->assertSame($iterator, $this->subject->get('foobar'));
@@ -36,13 +39,13 @@ class IteratorRegistryTest extends \PHPUnit_Framework_TestCase
 
     public function testAll()
     {
-        $iterator1 = $this->getMock('Abc\Bundle\SchedulerBundle\Iterator\ScheduleIteratorInterface');
-        $iterator2 = $this->getMock('Abc\Bundle\SchedulerBundle\Iterator\ScheduleIteratorInterface');
+        $iterator1 = $this->getMock(ScheduleIteratorInterface::class);
+        $iterator2 = $this->getMock(ScheduleIteratorInterface::class);
 
         $this->subject->register('foo', $iterator1);
         $this->subject->register('bar', $iterator2);
 
-        $this->assertEquals(array('foo' => $iterator1, 'bar' => $iterator2), $this->subject->all());
+        $this->assertEquals(['foo' => $iterator1, 'bar' => $iterator2], $this->subject->all());
     }
 
     /**

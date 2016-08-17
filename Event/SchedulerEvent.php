@@ -20,7 +20,9 @@ use Symfony\Component\EventDispatcher\Event;
  */
 class SchedulerEvent extends Event
 {
-    /** @var ScheduleInterface  */
+    /**
+     * @var ScheduleInterface
+     */
     private $schedule;
 
     /**

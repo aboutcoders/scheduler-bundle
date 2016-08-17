@@ -10,6 +10,8 @@
 
 namespace Abc\Bundle\SchedulerBundle\Tests\Integration;
 
+use Abc\Bundle\SchedulerBundle\Iterator\IteratorRegistryInterface;
+use Abc\Bundle\SchedulerBundle\Schedule\SchedulerInterface;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -17,11 +19,16 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * @author Hannes Schulz <hannes.schulz@aboutcoders.com>
  */
-class ServiceConfigurationTest extends KernelTestCase
+class ServiceTest extends KernelTestCase
 {
-    /** @var Application */
+    /**
+     * @var Application
+     */
     private $application;
-    /** @var ContainerInterface */
+
+    /**
+     * @var ContainerInterface
+     */
     private $container;
 
     /**
@@ -55,8 +62,8 @@ class ServiceConfigurationTest extends KernelTestCase
     public function getServices()
     {
         return array(
-            array('abc.scheduler.scheduler', 'Abc\Bundle\SchedulerBundle\Schedule\SchedulerInterface'),
-            array('abc.scheduler.iterator_registry', 'Abc\Bundle\SchedulerBundle\Iterator\IteratorRegistryInterface'),
+            ['abc.scheduler.scheduler', SchedulerInterface::class],
+            ['abc.scheduler.iterator_registry', IteratorRegistryInterface::class]
         );
     }
 }

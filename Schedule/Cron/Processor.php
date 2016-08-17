@@ -21,7 +21,9 @@ use Abc\Bundle\SchedulerBundle\Schedule\ProcessorInterface;
  */
 class Processor implements ProcessorInterface
 {
-    /** @var ExpressionFactoryInterface */
+    /**
+     * @var ExpressionFactoryInterface
+     */
     protected $expressionFactory;
 
     /**

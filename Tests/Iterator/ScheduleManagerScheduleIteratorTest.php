@@ -19,14 +19,19 @@ use Abc\DemoBundle\Entity\Schedule;
  */
 class ScheduleManagerScheduleIteratorTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var ScheduleManagerInterface|\PHPUnit_Framework_MockObject_MockObject */
+    /**
+     * @var ScheduleManagerInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
     private $manager;
-    /** @var ScheduleManagerScheduleIterator */
+
+    /**
+     * @var ScheduleManagerScheduleIterator
+     */
     private $subject;
 
     public function setUp()
     {
-        $this->manager = $this->getMock('Abc\Bundle\SchedulerBundle\Model\ScheduleManagerInterface');
+        $this->manager = $this->getMock(ScheduleManagerInterface::class);
         $this->subject = new ScheduleManagerScheduleIterator($this->manager, 2);
     }
 
