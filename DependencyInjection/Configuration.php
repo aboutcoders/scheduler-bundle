@@ -26,19 +26,17 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('abc_scheduler');
-
         $supportedDrivers = array('orm', 'custom');
 
         $rootNode
             ->children()
                 ->scalarNode('db_driver')
+                    ->cannotBeOverwritten()
+                    ->defaultValue('orm')
                     ->validate()
                         ->ifNotInArray($supportedDrivers)
                         ->thenInvalid('The driver %s is not supported. Please choose one of '.json_encode($supportedDrivers))
                     ->end()
-                    ->cannotBeOverwritten()
-                    ->isRequired()
-                    ->cannotBeEmpty()
                 ->end()
                 ->scalarNode('model_manager_name')
                     ->defaultNull()

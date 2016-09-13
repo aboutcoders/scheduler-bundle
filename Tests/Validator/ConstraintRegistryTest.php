@@ -8,38 +8,38 @@
 * file that was distributed with this source code.
 */
 
-namespace Abc\Bundle\SchedulerBundle\Tests\Schedule;
+namespace Validator;
 
-use Abc\Bundle\SchedulerBundle\Schedule\ProcessorInterface;
-use Abc\Bundle\SchedulerBundle\Schedule\ProcessorRegistry;
+use Abc\Bundle\SchedulerBundle\Validator\ConstraintRegistry;
+use Symfony\Component\Validator\Constraint;
 
-/**
- * @author Hannes Schulz <hannes.schulz@aboutcoders.com>
- */
-class ProcessorRegistryTest extends \PHPUnit_Framework_TestCase
+class ConstraintRegistryTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var ProcessorRegistry
+     * @var ConstraintRegistry
      */
     private $subject;
 
+    /**
+     * {@inheritdoc}
+     */
     public function setUp()
     {
-        $this->subject = new ProcessorRegistry();
+        $this->subject = new ConstraintRegistry();
     }
 
     public function testRegister()
     {
-        $processor = $this->getMock(ProcessorInterface::class);
+        $constraint = $this->getMockForAbstractClass(Constraint::class);
 
-        $this->subject->register('foobar', $processor);
-        $this->assertSame($processor, $this->subject->get('foobar'));
+        $this->subject->register('foobar', $constraint);
+        $this->assertSame($constraint, $this->subject->get('foobar'));
     }
 
     public function testHas()
     {
         $this->assertFalse($this->subject->has('foobar'));
-        $this->subject->register('foobar', $this->getMock(ProcessorInterface::class));
+        $this->subject->register('foobar', $this->getMockForAbstractClass(Constraint::class));
         $this->assertTrue($this->subject->has('foobar'));
     }
 

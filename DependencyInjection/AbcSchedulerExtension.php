@@ -32,12 +32,12 @@ class AbcSchedulerExtension extends Extension
 
         if ('custom' !== $config['db_driver'])
         {
-            $loader->load(sprintf('%s.xml', $config['db_driver']));
             $container->setParameter('abc.scheduler.backend_type_' . $config['db_driver'], true);
         }
 
         $loader->load('scheduler.xml');
         $loader->load('processors.xml');
+        $loader->load('validator.xml');
 
         $this->remapParametersNamespaces(
             $config, $container, array(

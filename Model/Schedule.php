@@ -10,20 +10,24 @@
 
 namespace Abc\Bundle\SchedulerBundle\Model;
 
+use Abc\Bundle\SchedulerBundle\Validator\Constraints as AssertSchedule;
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
- * Schedule
- *
+ * @AssertSchedule\Schedule
  * @author Hannes Schulz <hannes.schulz@aboutcoders.com>
  */
 class Schedule implements ScheduleInterface
 {
-
     /**
+     * @Assert\NotBlank
+     * @AssertSchedule\Type
      * @var string
      */
     protected $type;
 
     /**
+     * @Assert\NotBlank
      * @var string
      */
     protected $expression;

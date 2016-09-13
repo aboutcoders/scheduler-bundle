@@ -8,7 +8,7 @@
 * file that was distributed with this source code.
 */
 
-namespace Abc\Bundle\SchedulerBundle\Tests\Integration;
+namespace Abc\Bundle\SchedulerBundle\Tests\Functional;
 
 use Abc\Bundle\SchedulerBundle\Iterator\ScheduleIteratorInterface;
 use Abc\Bundle\SchedulerBundle\Model\ScheduleInterface;

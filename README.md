@@ -232,7 +232,7 @@ $manager->update($schedule);
 - [How-to register a custom schedule type](./docs/how-to-register-a-custom-schedule-type.md)
 
 ## ToDo
+- Document validation
 - Document how-to use a PCNTL controlled iterator in a continuous deployment setup
-- Introduce [myclabs/php-enum](https://github.com/myclabs/php-enum) for the schedule type
 - Provide factories in the service container that simplify schedule creation
 - Add option to enable/disable a schedule

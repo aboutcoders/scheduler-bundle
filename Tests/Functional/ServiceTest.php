@@ -8,10 +8,11 @@
 * file that was distributed with this source code.
 */
 
-namespace Abc\Bundle\SchedulerBundle\Tests\Integration;
+namespace Abc\Bundle\SchedulerBundle\Tests\Functional;
 
 use Abc\Bundle\SchedulerBundle\Iterator\IteratorRegistryInterface;
 use Abc\Bundle\SchedulerBundle\Schedule\SchedulerInterface;
+use Abc\Bundle\SchedulerBundle\Validator\Constraints\TypeValidator;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -61,9 +62,11 @@ class ServiceTest extends KernelTestCase
      */
     public function getServices()
     {
-        return array(
+        return [
             ['abc.scheduler.scheduler', SchedulerInterface::class],
-            ['abc.scheduler.iterator_registry', IteratorRegistryInterface::class]
-        );
+            ['abc.scheduler.iterator_registry', IteratorRegistryInterface::class],
+            ['abc.scheduler.validator.type', TypeValidator::class]
+
+        ];
     }
 }

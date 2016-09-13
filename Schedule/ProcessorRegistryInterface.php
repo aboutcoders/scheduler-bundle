@@ -18,6 +18,8 @@ namespace Abc\Bundle\SchedulerBundle\Schedule;
 interface ProcessorRegistryInterface
 {
     /**
+     * Registers a processor.
+     *
      * @param string             $type
      * @param ProcessorInterface $processor
      * @return void
@@ -25,9 +27,19 @@ interface ProcessorRegistryInterface
     public function register($type, ProcessorInterface $processor);
 
     /**
+     * Returns the processor for the given type.
+     *
      * @param string $type
      * @return ProcessorInterface
-     * @throws \InvalidArgumentException
+     * @throws \InvalidArgumentException If no processor exists
      */
     public function get($type);
+
+    /**
+     * Returns whether a processor for the given type exists.
+     *
+     * @param $type
+     * @return boolean
+     */
+    public function has($type);
 }

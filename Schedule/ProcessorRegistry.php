@@ -33,6 +33,14 @@ class ProcessorRegistry implements ProcessorRegistryInterface
     /**
      * {@inheritDoc}
      */
+    public function has($type)
+    {
+        return isset($this->registry[$type]);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function get($type)
     {
         if(!array_key_exists($type, $this->registry))
