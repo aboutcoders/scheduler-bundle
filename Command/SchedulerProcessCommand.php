@@ -14,6 +14,7 @@ use Abc\Bundle\SchedulerBundle\Iterator\IteratorRegistryInterface;
 use Abc\Bundle\SchedulerBundle\Schedule\Exception\SchedulerException;
 use Abc\Bundle\SchedulerBundle\Schedule\SchedulerInterface;
 use Abc\ProcessControl\ControllerInterface;
+use Abc\ProcessControl\NullController;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -51,7 +52,7 @@ class SchedulerProcessCommand extends ContainerAwareCommand
 
                 $i++;
                 $this->iterate($input, $output, $startMemoryUsage);
-            } while (!$this->getProcessController()->doExit() && (!$input->getOption('iteration') || $i < (int)$input->getOption('iteration')));
+            } while (!$this->getProcessController()->doStop() && (!$input->getOption('iteration') || $i < (int)$input->getOption('iteration')));
 
             $output->writeln('End of iteration cycle');
         } catch (\Exception $e) {
@@ -106,6 +107,10 @@ class SchedulerProcessCommand extends ContainerAwareCommand
      */
     public function getProcessController()
     {
+        if(!$this->getContainer()->has('abc.process_control.controller') || !$this->getContainer()->get('abc.process_control.controller') instanceof ControllerInterface) {
+            return new NullController();
+        }
+
         return $this->getContainer()->get('abc.process_control.controller');
     }
 }

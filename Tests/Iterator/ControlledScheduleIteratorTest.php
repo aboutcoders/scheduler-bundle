@@ -19,7 +19,6 @@ use Abc\ProcessControl\ControllerInterface;
  */
 class ControlledScheduleIteratorTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @var ControllerInterface|\PHPUnit_Framework_MockObject_MockObject
      */
@@ -35,10 +34,13 @@ class ControlledScheduleIteratorTest extends \PHPUnit_Framework_TestCase
      */
     private $subject;
 
+    /**
+     * {@inheritdoc}
+     */
     public function setUp()
     {
-        $this->controller       = $this->getMock(ControllerInterface::class);
-        $this->scheduleIterator = $this->getMock(ScheduleIteratorInterface::class);
+        $this->controller       = $this->createMock(ControllerInterface::class);
+        $this->scheduleIterator = $this->createMock(ScheduleIteratorInterface::class);
         $this->subject          = new ControlledScheduleIterator($this->controller, $this->scheduleIterator);
     }
 
@@ -69,21 +71,21 @@ class ControlledScheduleIteratorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param bool $doExit
+     * @param bool $doStop
      * @param bool $valid
      * @dataProvider getBooleanArray
      */
-    public function testValid($doExit, $valid)
+    public function testValid($doStop, $valid)
     {
         $this->scheduleIterator->expects($this->any())
             ->method('valid')
             ->willReturn($valid);
 
         $this->controller->expects($this->any())
-            ->method('doExit')
-            ->willReturn($doExit);
+            ->method('doStop')
+            ->willReturn($doStop);
 
-        if ($doExit) {
+        if ($doStop) {
             $this->assertEquals(false, $this->subject->valid());
         } else {
             $this->assertEquals($valid, $this->subject->valid());

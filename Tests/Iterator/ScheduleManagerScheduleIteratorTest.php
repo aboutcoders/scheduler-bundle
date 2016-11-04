@@ -29,9 +29,12 @@ class ScheduleManagerScheduleIteratorTest extends \PHPUnit_Framework_TestCase
      */
     private $subject;
 
+    /**
+     * {@inheritdoc}
+     */
     public function setUp()
     {
-        $this->manager = $this->getMock(ScheduleManagerInterface::class);
+        $this->manager = $this->createMock(ScheduleManagerInterface::class);
         $this->subject = new ScheduleManagerScheduleIterator($this->manager, 2);
     }
 

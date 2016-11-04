@@ -22,7 +22,6 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class ScheduleValidatorTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @var ExecutionContext|\PHPUnit_Framework_MockObject_MockObject
      */
@@ -39,7 +38,7 @@ class ScheduleValidatorTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->subject = new ScheduleValidator();
-        $this->context = $this->getMockBuilder(ExecutionContext::class)->disableOriginalConstructor()->getMock();
+        $this->context = $this->createMock(ExecutionContext::class);
         $this->subject->initialize($this->context);
     }
 
@@ -73,8 +72,8 @@ class ScheduleValidatorTest extends \PHPUnit_Framework_TestCase
         $value->setType('foobar');
         $value->setExpression('ScheduleExpression');
 
-        $validator           = $this->getMock(ValidatorInterface::class);
-        $contextualValidator = $this->getMock(ContextualValidatorInterface::class);
+        $validator           = $this->createMock(ValidatorInterface::class);
+        $contextualValidator = $this->createMock(ContextualValidatorInterface::class);
 
         $this->context->expects($this->once())
             ->method('getValidator')

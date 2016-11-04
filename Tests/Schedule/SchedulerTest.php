@@ -53,17 +53,19 @@ class SchedulerTest extends \PHPUnit_Framework_TestCase
      */
     private $subject;
 
+    /**
+     * {@inheritdoc}
+     */
     public function setUp()
     {
-        $this->dispatcher = $this->getMock(EventDispatcherInterface::class);
-        $this->manager    = $this->getMock(ScheduleManagerInterface::class);
-        $this->processor  = $this->getMock(ProcessorInterface::class);
+        $this->dispatcher = $this->createMock(EventDispatcherInterface::class);
+        $this->manager    = $this->createMock(ScheduleManagerInterface::class);
+        $this->processor  = $this->createMock(ProcessorInterface::class);
         $this->registry   = new ProcessorRegistry();
         $this->registry->register('type', $this->processor);
 
         $this->subject = new Scheduler($this->registry, $this->dispatcher);
     }
-
 
     public function testProcess()
     {
@@ -150,7 +152,6 @@ class SchedulerTest extends \PHPUnit_Framework_TestCase
             $this->assertSame($schedules[1], $schedulerException->getSchedule());
         }
     }
-
 
     private function initManager(array $schedules)
     {

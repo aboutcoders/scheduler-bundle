@@ -18,7 +18,6 @@ use Abc\Bundle\SchedulerBundle\Model\Schedule;
  */
 class ProcessorTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @var Processor
      */
@@ -58,7 +57,6 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->subject->process($schedule, $currentDateTime));
     }
 
-
     public static function getExpectedData()
     {
         $date            = new \DateTime();
@@ -77,6 +75,9 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @return array
+     */
     public static function getDatesData()
     {
         return array(

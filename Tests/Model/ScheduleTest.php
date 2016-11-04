@@ -17,7 +17,6 @@ use Abc\Bundle\SchedulerBundle\Model\Schedule;
  */
 class ScheduleTest extends \PHPUnit_Framework_TestCase
 {
-
     public function testExpression()
     {
         $schedule = $this->getSchedule();
@@ -46,7 +45,6 @@ class ScheduleTest extends \PHPUnit_Framework_TestCase
         return new Schedule();
     }
 
-
     public function testClone()
     {
         $schedule = new Schedule();
@@ -57,4 +55,3 @@ class ScheduleTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($clone->getScheduledAt());
     }
 }
- 

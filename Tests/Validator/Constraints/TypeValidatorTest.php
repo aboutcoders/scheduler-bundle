@@ -41,9 +41,9 @@ class TypeValidatorTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->registry = $this->getMock(ProcessorRegistryInterface::class);
+        $this->registry = $this->createMock(ProcessorRegistryInterface::class);
         $this->subject  = new TypeValidator($this->registry);
-        $this->context  = $this->getMockBuilder(ExecutionContext::class)->disableOriginalConstructor()->getMock();
+        $this->context  = $this->createMock(ExecutionContext::class);
         $this->subject->initialize($this->context);
     }
 
@@ -58,7 +58,7 @@ class TypeValidatorTest extends \PHPUnit_Framework_TestCase
     public function testWithTypeNotRegistered()
     {
         $value = 'foobar';
-        $builder = $this->getMock(ConstraintViolationBuilderInterface::class);
+        $builder = $this->createMock(ConstraintViolationBuilderInterface::class);
 
         $this->registry->expects($this->once())
             ->method('has')

@@ -42,7 +42,6 @@ class BundleIntegrationTest extends KernelTestCase
      */
     private $container;
 
-
     /**
      * {@inheritDoc}
      */

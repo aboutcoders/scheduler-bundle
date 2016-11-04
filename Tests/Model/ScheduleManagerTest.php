@@ -18,7 +18,6 @@ use Abc\Bundle\SchedulerBundle\Model\ScheduleManager;
  */
 class ScheduleManagerTest extends \PHPUnit_Framework_TestCase
 {
-
     public function testCreate()
     {
         $manager = $this->getManager();

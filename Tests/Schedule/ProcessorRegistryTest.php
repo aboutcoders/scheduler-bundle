@@ -23,6 +23,9 @@ class ProcessorRegistryTest extends \PHPUnit_Framework_TestCase
      */
     private $subject;
 
+    /**
+     * {@inheritdoc}
+     */
     public function setUp()
     {
         $this->subject = new ProcessorRegistry();
@@ -30,7 +33,7 @@ class ProcessorRegistryTest extends \PHPUnit_Framework_TestCase
 
     public function testRegister()
     {
-        $processor = $this->getMock(ProcessorInterface::class);
+        $processor = $this->createMock(ProcessorInterface::class);
 
         $this->subject->register('foobar', $processor);
         $this->assertSame($processor, $this->subject->get('foobar'));
@@ -39,7 +42,7 @@ class ProcessorRegistryTest extends \PHPUnit_Framework_TestCase
     public function testHas()
     {
         $this->assertFalse($this->subject->has('foobar'));
-        $this->subject->register('foobar', $this->getMock(ProcessorInterface::class));
+        $this->subject->register('foobar', $this->createMock(ProcessorInterface::class));
         $this->assertTrue($this->subject->has('foobar'));
     }
 

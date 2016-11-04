@@ -30,7 +30,7 @@ class ConstraintRegistryTest extends \PHPUnit_Framework_TestCase
 
     public function testRegister()
     {
-        $constraint = $this->getMockForAbstractClass(Constraint::class);
+        $constraint = $this->createMock(Constraint::class);
 
         $this->subject->register('foobar', $constraint);
         $this->assertSame($constraint, $this->subject->get('foobar'));
@@ -39,7 +39,7 @@ class ConstraintRegistryTest extends \PHPUnit_Framework_TestCase
     public function testHas()
     {
         $this->assertFalse($this->subject->has('foobar'));
-        $this->subject->register('foobar', $this->getMockForAbstractClass(Constraint::class));
+        $this->subject->register('foobar', $this->createMock(Constraint::class));
         $this->assertTrue($this->subject->has('foobar'));
     }
 

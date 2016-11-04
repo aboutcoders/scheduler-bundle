@@ -43,9 +43,9 @@ class ExpressionValidatorTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->registry = $this->getMock(ConstraintRegistry::class);
+        $this->registry = $this->createMock(ConstraintRegistry::class);
         $this->subject  = new ExpressionValidator($this->registry);
-        $this->context  = $this->getMockBuilder(ExecutionContext::class)->disableOriginalConstructor()->getMock();
+        $this->context  = $this->createMock(ExecutionContext::class);
         $this->subject->initialize($this->context);
     }
 
@@ -78,9 +78,9 @@ class ExpressionValidatorTest extends \PHPUnit_Framework_TestCase
 
     public function testValidateWithTypeRegistered()
     {
-        $validator           = $this->getMock(ValidatorInterface::class);
-        $contextualValidator = $this->getMock(ContextualValidatorInterface::class);
-        $constraint          = $this->getMockForAbstractClass(Constraint::class);
+        $validator           = $this->createMock(ValidatorInterface::class);
+        $contextualValidator = $this->createMock(ContextualValidatorInterface::class);
+        $constraint          = $this->createMock(Constraint::class);
 
         $this->registry->expects($this->once())
             ->method('has')

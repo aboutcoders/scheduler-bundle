@@ -36,7 +36,7 @@ class CronExpressionValidatorTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->subject = new CronExpressionValidator();
-        $this->context = $this->getMockBuilder(ExecutionContext::class)->disableOriginalConstructor()->getMock();
+        $this->context = $this->createMock(ExecutionContext::class);
         $this->subject->initialize($this->context);
     }
 
@@ -66,7 +66,7 @@ class CronExpressionValidatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testValidateWithInvalidExpression($expression)
     {
-        $builder = $this->getMock(ConstraintViolationBuilderInterface::class);
+        $builder = $this->createMock(ConstraintViolationBuilderInterface::class);
 
         $this->context->expects($this->once())
             ->method('buildViolation')
@@ -83,6 +83,9 @@ class CronExpressionValidatorTest extends \PHPUnit_Framework_TestCase
         $this->subject->validate($expression, new CronExpression());
     }
 
+    /**
+     * @return array
+     */
     public static function provideValidExpressions()
     {
         return [
@@ -92,6 +95,9 @@ class CronExpressionValidatorTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
+    /**
+     * @return array
+     */
     public static function provideInvalidExpressions()
     {
         return [

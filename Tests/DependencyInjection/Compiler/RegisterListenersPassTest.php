@@ -20,7 +20,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class RegisterListenersPassTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * Tests that event subscribers not implementing EventSubscriberInterface
      * trigger an exception.
@@ -34,7 +33,7 @@ class RegisterListenersPassTest extends \PHPUnit_Framework_TestCase
             'my_event_subscriber' => array(0 => array()),
         );
 
-        $definition = $this->getMock(Definition::class);
+        $definition = $this->createMock(Definition::class);
 
         $definition->expects($this->atLeastOnce())
             ->method('isPublic')
@@ -44,7 +43,7 @@ class RegisterListenersPassTest extends \PHPUnit_Framework_TestCase
             ->method('getClass')
             ->will($this->returnValue('stdClass'));
 
-        $builder = $this->getMock(ContainerBuilder::class);
+        $builder = $this->createMock(ContainerBuilder::class);
 
         $builder->expects($this->any())
             ->method('hasDefinition')
@@ -70,7 +69,7 @@ class RegisterListenersPassTest extends \PHPUnit_Framework_TestCase
             'my_event_subscriber' => array(0 => array()),
         );
 
-        $definition = $this->getMock(Definition::class);
+        $definition = $this->createMock(Definition::class);
 
         $definition->expects($this->atLeastOnce())
             ->method('isPublic')
@@ -80,7 +79,7 @@ class RegisterListenersPassTest extends \PHPUnit_Framework_TestCase
             ->method('getClass')
             ->will($this->returnValue(SubscriberService::class));
 
-        $builder = $this->getMock(ContainerBuilder::class);
+        $builder = $this->createMock(ContainerBuilder::class);
 
         $builder->expects($this->any())
             ->method('hasDefinition')
@@ -103,7 +102,6 @@ class RegisterListenersPassTest extends \PHPUnit_Framework_TestCase
         $registerListenersPass->process($builder);
     }
 
-
     /**
      * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage The service "foo" must be public as event listeners are lazy-loaded.
@@ -118,7 +116,6 @@ class RegisterListenersPassTest extends \PHPUnit_Framework_TestCase
         $registerListenersPass->process($container);
     }
 
-
     /**
      * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage The service "foo" must be public as event subscribers are lazy-loaded.
@@ -132,7 +129,6 @@ class RegisterListenersPassTest extends \PHPUnit_Framework_TestCase
         $registerListenersPass = new RegisterListenersPass();
         $registerListenersPass->process($container);
     }
-
 
     /**
      * @expectedException \InvalidArgumentException

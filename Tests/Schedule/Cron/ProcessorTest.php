@@ -38,8 +38,8 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->factory    = $this->getMock(ExpressionFactoryInterface::class);
-        $this->expression = $this->getMockBuilder(CronExpression::class)->disableOriginalConstructor()->getMock();
+        $this->factory    = $this->createMock(ExpressionFactoryInterface::class);
+        $this->expression = $this->createMock(CronExpression::class);
         $this->subject    = new Processor($this->factory);
     }
 

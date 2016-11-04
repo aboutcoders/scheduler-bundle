@@ -54,14 +54,16 @@ class SchedulerProcessCommandTest extends \PHPUnit_Framework_TestCase
      */
     private $registry;
 
-
+    /**
+     * {@inheritdoc}
+     */
     public function setUp()
     {
-        $controller = $this->getMock(ControllerInterface::class);
-        $scheduler        = $this->getMock(SchedulerInterface::class);
+        $controller = $this->createMock(ControllerInterface::class);
+        $scheduler        = $this->createMock(SchedulerInterface::class);
         $registry         = new IteratorRegistry();
 
-        $this->container = $this->getMock(ContainerInterface::class);
+        $this->container = $this->createMock(ContainerInterface::class);
 
         $this->container->expects($this->any())
             ->method('get')
@@ -86,13 +88,13 @@ class SchedulerProcessCommandTest extends \PHPUnit_Framework_TestCase
             );
 
         $controller->expects($this->any())
-            ->method('doExit')
+            ->method('doStop')
             ->willReturn(false);
 
         $command = new SchedulerProcessCommand();
         $command->setContainer($this->container);
 
-        $kernel = $this->getMock(KernelInterface::class);
+        $kernel = $this->createMock(KernelInterface::class);
 
         $this->application = new Application($kernel);
         $this->application->add($command);
@@ -168,7 +170,7 @@ class SchedulerProcessCommandTest extends \PHPUnit_Framework_TestCase
     private function buildIterator($numOfSchedules)
     {
         $schedules = $this->createSchedules($numOfSchedules);
-        $manager   = $this->getMock(ScheduleManagerInterface::class);
+        $manager   = $this->createMock(ScheduleManagerInterface::class);
         $this->initManager($manager, $schedules);
 
         return new ScheduleManagerScheduleIterator($manager);

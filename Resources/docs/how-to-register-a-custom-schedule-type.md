@@ -1,5 +1,5 @@
-How-to define a custom schedule type
-====================================
+How-to register a custom schedule type
+======================================
 
 You can easily define your own schedule types by simply writing the processor and registering it in the service container.
 
@@ -33,3 +33,5 @@ $schedule->setType('mytype');
 $schedule->setExpression($myExpression);
 $manager->update($schedule);
 ```
+
+Back to [index](../../README.md)

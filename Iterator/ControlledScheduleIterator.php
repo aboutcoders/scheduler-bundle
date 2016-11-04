@@ -66,7 +66,7 @@ class ControlledScheduleIterator implements ScheduleIteratorInterface
      */
     public function valid()
     {
-        return !$this->controller->doExit() && $this->scheduleIterator->valid();
+        return !$this->controller->doStop() && $this->scheduleIterator->valid();
     }
 
     /**
