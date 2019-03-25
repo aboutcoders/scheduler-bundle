@@ -24,11 +24,11 @@ class CronExpressionValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint)
     {
-        if (null === $value) {
+        if (null === $value || '' === $value) {
             return;
         }
 
-        if(!Validator::isValidExpression($value)) {
+        if (!Validator::isValidExpression($value)) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{string}}', $value)
                 ->addViolation();
