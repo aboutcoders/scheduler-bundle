@@ -6,7 +6,7 @@
     "homepage": "https://aboutcoders.com",
     "license": "MIT",
     "require": {
-        "php": ">=7.0.0",
+        "php": "^7.1",
         "symfony/symfony": "~3.4",
         "mtdowling/cron-expression": "~1.2"
     },
