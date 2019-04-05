@@ -23,12 +23,12 @@ use PHPUnit\Framework\TestCase;
 class ProcessorTest extends TestCase
 {
     /**
-     * @var ExpressionFactoryInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var ExpressionFactoryInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     private $factory;
 
     /**
-     * @var CronExpression|\PHPUnit_Framework_MockObject_MockObject
+     * @var CronExpression|\PHPUnit\Framework\MockObject\MockObject
      */
     private $expression;
 

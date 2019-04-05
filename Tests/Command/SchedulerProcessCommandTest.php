@@ -31,7 +31,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
 class SchedulerProcessCommandTest extends TestCase
 {
     /**
-     * @var ContainerInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var ContainerInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     private $container;
 
@@ -41,12 +41,12 @@ class SchedulerProcessCommandTest extends TestCase
     private $application;
 
     /**
-     * @var SchedulerInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var SchedulerInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     private $scheduler;
 
     /**
-     * @var ControllerInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var ControllerInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     private $controller;
 
@@ -189,10 +189,10 @@ class SchedulerProcessCommandTest extends TestCase
     }
 
     /**
-     * @param \PHPUnit_Framework_MockObject_MockObject $manager
+     * @param \PHPUnit\Framework\MockObject\MockObject $manager
      * @param array                                    $schedules
      */
-    private function initManager(\PHPUnit_Framework_MockObject_MockObject $manager, array $schedules)
+    private function initManager(\PHPUnit\Framework\MockObject\MockObject $manager, array $schedules)
     {
         $manager->expects($this->any())
             ->method('findSchedules')

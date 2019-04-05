@@ -21,7 +21,7 @@ use PHPUnit\Framework\TestCase;
 class ScheduleManagerScheduleIteratorTest extends TestCase
 {
     /**
-     * @var ScheduleManagerInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var ScheduleManagerInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     private $manager;
 

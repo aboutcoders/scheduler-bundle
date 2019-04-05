@@ -24,7 +24,7 @@ use PHPUnit\Framework\TestCase;
 class ScheduleValidatorTest extends TestCase
 {
     /**
-     * @var ExecutionContext|\PHPUnit_Framework_MockObject_MockObject
+     * @var ExecutionContext|\PHPUnit\Framework\MockObject\MockObject
      */
     private $context;
 

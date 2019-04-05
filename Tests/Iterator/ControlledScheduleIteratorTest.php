@@ -21,12 +21,12 @@ use PHPUnit\Framework\TestCase;
 class ControlledScheduleIteratorTest extends TestCase
 {
     /**
-     * @var ControllerInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var ControllerInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     private $controller;
 
     /**
-     * @var ScheduleIteratorInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var ScheduleIteratorInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     private $scheduleIterator;
 

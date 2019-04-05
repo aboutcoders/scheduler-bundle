@@ -33,7 +33,7 @@ class ScheduleManagerTest extends TestCase
     }
 
     /**
-     * @return ScheduleManager|\PHPUnit_Framework_MockObject_MockObject
+     * @return ScheduleManager|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getManager()
     {

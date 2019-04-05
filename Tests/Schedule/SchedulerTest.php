@@ -30,7 +30,7 @@ use PHPUnit\Framework\TestCase;
 class SchedulerTest extends TestCase
 {
     /**
-     * @var EventDispatcherInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var EventDispatcherInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     private $dispatcher;
 
@@ -40,12 +40,12 @@ class SchedulerTest extends TestCase
     private $registry;
 
     /**
-     * @var ProcessorInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var ProcessorInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     private $processor;
 
     /**
-     * @var ScheduleManagerInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var ScheduleManagerInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     private $manager;
 

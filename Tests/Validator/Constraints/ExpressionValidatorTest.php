@@ -25,12 +25,12 @@ use PHPUnit\Framework\TestCase;
 class ExpressionValidatorTest extends TestCase
 {
     /**
-     * @var ConstraintRegistry|\PHPUnit_Framework_MockObject_MockObject
+     * @var ConstraintRegistry|\PHPUnit\Framework\MockObject\MockObject
      */
     private $registry;
 
     /**
-     * @var ExecutionContext|\PHPUnit_Framework_MockObject_MockObject
+     * @var ExecutionContext|\PHPUnit\Framework\MockObject\MockObject
      */
     private $context;
 

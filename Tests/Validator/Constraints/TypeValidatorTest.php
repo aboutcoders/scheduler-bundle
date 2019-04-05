@@ -23,12 +23,12 @@ use PHPUnit\Framework\TestCase;
 class TypeValidatorTest extends TestCase
 {
     /**
-     * @var ProcessorRegistryInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var ProcessorRegistryInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     private $registry;
 
     /**
-     * @var ExecutionContext|\PHPUnit_Framework_MockObject_MockObject
+     * @var ExecutionContext|\PHPUnit\Framework\MockObject\MockObject
      */
     private $context;
 

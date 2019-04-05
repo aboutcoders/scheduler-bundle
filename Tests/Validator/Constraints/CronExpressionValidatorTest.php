@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 class CronExpressionValidatorTest extends TestCase
 {
     /**
-     * @var ExecutionContext|\PHPUnit_Framework_MockObject_MockObject
+     * @var ExecutionContext|\PHPUnit\Framework\MockObject\MockObject
      */
     private $context;
 
