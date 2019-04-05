@@ -14,11 +14,12 @@ use Abc\Bundle\SchedulerBundle\Validator\Constraints\CronExpression;
 use Abc\Bundle\SchedulerBundle\Validator\Constraints\CronExpressionValidator;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Hannes Schulz <hannes.schulz@aboutcoders.com>
  */
-class CronExpressionValidatorTest extends \PHPUnit_Framework_TestCase
+class CronExpressionValidatorTest extends TestCase
 {
     /**
      * @var ExecutionContext|\PHPUnit_Framework_MockObject_MockObject

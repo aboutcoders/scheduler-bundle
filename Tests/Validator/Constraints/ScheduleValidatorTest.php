@@ -16,11 +16,12 @@ use Abc\Bundle\SchedulerBundle\Validator\Constraints\ScheduleValidator;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Validator\ContextualValidatorInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Hannes Schulz <hannes.schulz@aboutcoders.com>
  */
-class ScheduleValidatorTest extends \PHPUnit_Framework_TestCase
+class ScheduleValidatorTest extends TestCase
 {
     /**
      * @var ExecutionContext|\PHPUnit_Framework_MockObject_MockObject

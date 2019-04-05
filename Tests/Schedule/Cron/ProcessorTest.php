@@ -15,11 +15,12 @@ use Abc\Bundle\SchedulerBundle\Schedule\Cron\ExpressionFactory;
 use Abc\Bundle\SchedulerBundle\Schedule\Cron\ExpressionFactoryInterface;
 use Abc\Bundle\SchedulerBundle\Schedule\Cron\Processor;
 use Cron\CronExpression;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Hannes Schulz <hannes.schulz@aboutcoders.com>
  */
-class ProcessorTest extends \PHPUnit_Framework_TestCase
+class ProcessorTest extends TestCase
 {
     /**
      * @var ExpressionFactoryInterface|\PHPUnit_Framework_MockObject_MockObject

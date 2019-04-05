@@ -12,11 +12,12 @@ namespace Abc\Bundle\SchedulerBundle\Tests\Model;
 
 use Abc\Bundle\SchedulerBundle\Model\Schedule;
 use Abc\Bundle\SchedulerBundle\Model\ScheduleManager;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Hannes Schulz <hannes.schulz@aboutcoders.com>
  */
-class ScheduleManagerTest extends \PHPUnit_Framework_TestCase
+class ScheduleManagerTest extends TestCase
 {
     public function testCreate()
     {

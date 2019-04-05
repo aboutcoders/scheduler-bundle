@@ -12,11 +12,12 @@ namespace Abc\Bundle\SchedulerBundle\Tests\Schedule;
 
 use Abc\Bundle\SchedulerBundle\Schedule\ProcessorInterface;
 use Abc\Bundle\SchedulerBundle\Schedule\ProcessorRegistry;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Hannes Schulz <hannes.schulz@aboutcoders.com>
  */
-class ProcessorRegistryTest extends \PHPUnit_Framework_TestCase
+class ProcessorRegistryTest extends TestCase
 {
     /**
      * @var ProcessorRegistry

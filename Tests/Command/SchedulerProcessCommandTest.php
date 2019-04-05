@@ -19,6 +19,7 @@ use Abc\Bundle\SchedulerBundle\Schedule\Exception\ScheduleException;
 use Abc\Bundle\SchedulerBundle\Schedule\Exception\SchedulerException;
 use Abc\Bundle\SchedulerBundle\Schedule\SchedulerInterface;
 use Abc\ProcessControl\ControllerInterface;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -27,7 +28,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
 /**
  * @author Hannes Schulz <hannes.schulz@aboutcoders.com>
  */
-class SchedulerProcessCommandTest extends \PHPUnit_Framework_TestCase
+class SchedulerProcessCommandTest extends TestCase
 {
     /**
      * @var ContainerInterface|\PHPUnit_Framework_MockObject_MockObject
@@ -148,7 +149,10 @@ class SchedulerProcessCommandTest extends \PHPUnit_Framework_TestCase
         $commandTester->execute($input);
     }
 
-    public function testExecuteProcessesHandlesException()
+    /**
+     *
+     */
+    public function testExecuteHandlesException()
     {
         $this->registry->register('foo', $this->buildIterator(2));
 
@@ -160,7 +164,15 @@ class SchedulerProcessCommandTest extends \PHPUnit_Framework_TestCase
 
         $command       = $this->application->find('abc:scheduler:process');
         $commandTester = new CommandTester($command);
-        $commandTester->execute($input);
+
+        try {
+            $commandTester->execute($input);
+            $this->assertTrue(true, 'handles exceptions');
+        }
+        catch (\Exception $e)
+        {
+            $this->assertTrue(false, 'handles exceptions');
+        }
     }
 
     /**

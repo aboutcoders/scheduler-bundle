@@ -12,11 +12,12 @@ namespace Abc\Bundle\SchedulerBundle\Tests\Schedule\Cron;
 
 use Abc\Bundle\SchedulerBundle\Schedule\Cron\ExpressionFactory;
 use Cron\CronExpression;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Hannes Schulz <hannes.schulz@aboutcoders.com>
  */
-class ExpressionFactoryTest extends \PHPUnit_Framework_TestCase
+class ExpressionFactoryTest extends TestCase
 {
     public function testCreate()
     {

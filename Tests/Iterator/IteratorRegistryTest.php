@@ -12,11 +12,12 @@ namespace Abc\Bundle\SchedulerBundle\Tests\Iterator;
 
 use Abc\Bundle\SchedulerBundle\Iterator\IteratorRegistry;
 use Abc\Bundle\SchedulerBundle\Iterator\ScheduleIteratorInterface;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Hannes Schulz <hannes.schulz@aboutcoders.com>
  */
-class IteratorRegistryTest extends \PHPUnit_Framework_TestCase
+class IteratorRegistryTest extends TestCase
 {
     /**
      * @var IteratorRegistry

@@ -12,8 +12,9 @@ namespace Validator;
 
 use Abc\Bundle\SchedulerBundle\Validator\ConstraintRegistry;
 use Symfony\Component\Validator\Constraint;
+use PHPUnit\Framework\TestCase;
 
-class ConstraintRegistryTest extends \PHPUnit_Framework_TestCase
+class ConstraintRegistryTest extends TestCase
 {
     /**
      * @var ConstraintRegistry

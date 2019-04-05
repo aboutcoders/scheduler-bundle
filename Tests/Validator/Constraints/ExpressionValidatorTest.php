@@ -17,11 +17,12 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Validator\ContextualValidatorInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Hannes Schulz <hannes.schulz@aboutcoders.com>
  */
-class ExpressionValidatorTest extends \PHPUnit_Framework_TestCase
+class ExpressionValidatorTest extends TestCase
 {
     /**
      * @var ConstraintRegistry|\PHPUnit_Framework_MockObject_MockObject

@@ -12,11 +12,12 @@ namespace Abc\Bundle\SchedulerBundle\Tests\Schedule\Timestamp;
 
 use Abc\Bundle\SchedulerBundle\Schedule\Timestamp\Processor;
 use Abc\Bundle\SchedulerBundle\Model\Schedule;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Hannes Schulz <hannes.schulz@aboutcoders.com>
  */
-class ProcessorTest extends \PHPUnit_Framework_TestCase
+class ProcessorTest extends TestCase
 {
     /**
      * @var Processor

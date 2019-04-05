@@ -15,11 +15,12 @@ use Abc\Bundle\SchedulerBundle\Validator\Constraints\Type;
 use Abc\Bundle\SchedulerBundle\Validator\Constraints\TypeValidator;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Hannes Schulz <hannes.schulz@aboutcoders.com>
  */
-class TypeValidatorTest extends \PHPUnit_Framework_TestCase
+class TypeValidatorTest extends TestCase
 {
     /**
      * @var ProcessorRegistryInterface|\PHPUnit_Framework_MockObject_MockObject

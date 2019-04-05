@@ -11,6 +11,7 @@
 namespace Abc\Bundle\SchedulerBundle\Tests\DependencyInjection\Compiler;
 
 use Abc\Bundle\SchedulerBundle\DependencyInjection\Compiler\RegisterListenersPass;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -18,7 +19,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
  * @author Hannes Schulz <hannes.schulz@aboutcoders.com>
  */
-class RegisterListenersPassTest extends \PHPUnit_Framework_TestCase
+class RegisterListenersPassTest extends TestCase
 {
     /**
      * Tests that event subscribers not implementing EventSubscriberInterface

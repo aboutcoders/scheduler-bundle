@@ -13,11 +13,12 @@ namespace Abc\Bundle\SchedulerBundle\Tests\Iterator;
 use Abc\Bundle\SchedulerBundle\Iterator\ScheduleManagerScheduleIterator;
 use Abc\Bundle\SchedulerBundle\Model\ScheduleManagerInterface;
 use Abc\DemoBundle\Entity\Schedule;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Hannes Schulz <hannes.schulz@aboutcoders.com>
  */
-class ScheduleManagerScheduleIteratorTest extends \PHPUnit_Framework_TestCase
+class ScheduleManagerScheduleIteratorTest extends TestCase
 {
     /**
      * @var ScheduleManagerInterface|\PHPUnit_Framework_MockObject_MockObject

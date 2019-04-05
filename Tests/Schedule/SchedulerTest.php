@@ -22,11 +22,12 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Abc\Bundle\SchedulerBundle\Schedule\ProcessorRegistryInterface;
 use Abc\Bundle\SchedulerBundle\Schedule\ProcessorInterface;
 use Abc\Bundle\SchedulerBundle\Model\ScheduleManagerInterface;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Hannes Schulz <hannes.schulz@aboutcoders.com>
  */
-class SchedulerTest extends \PHPUnit_Framework_TestCase
+class SchedulerTest extends TestCase
 {
     /**
      * @var EventDispatcherInterface|\PHPUnit_Framework_MockObject_MockObject
