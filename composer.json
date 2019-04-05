@@ -6,9 +6,9 @@
     "homepage": "https://aboutcoders.com",
     "license": "MIT",
     "require": {
-        "php": ">=5.4.0",
-        "symfony/symfony": "~2.6|~3.0",
-        "mtdowling/cron-expression": "~1.0"
+        "php": ">=7.0.0",
+        "symfony/symfony": "~3.4",
+        "mtdowling/cron-expression": "~1.2"
     },
     "require-dev": {
         "phpunit/phpunit": "~5",
