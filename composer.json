@@ -1,5 +1,5 @@
 {
-    "name": "abc/scheduler-bundle",
+    "name": "aboutcoders/scheduler-bundle",
     "type": "symfony-bundle",
     "description": "A symfony bundle to process schedules base on CRON expressions",
     "keywords": ["cron", "schedule", "command"],
