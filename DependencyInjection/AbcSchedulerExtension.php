@@ -1,103 +1,45 @@
 <?php
-/*
-* This file is part of the scheduler-bundle package.
-*
-* (c) Hannes Schulz <hannes.schulz@aboutcoders.com>
-*
-* For the full copyright and license information, please view the LICENSE
-* file that was distributed with this source code.
-*/
 
-namespace Abc\Bundle\SchedulerBundle\DependencyInjection;
+namespace Abc\SchedulerBundle\DependencyInjection;
 
+use Abc\Scheduler\ChainExtension;
+use Abc\Scheduler\Extension\CheckCronExpressionExtension;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Symfony\Component\DependencyInjection\Extension\Extension;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Symfony\Component\DependencyInjection\Reference;
 
-/**
- * @author Hannes Schulz <hannes.schulz@aboutcoders.com>
- */
 class AbcSchedulerExtension extends Extension
 {
-    /**
-     * {@inheritDoc}
-     */
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container): void
     {
-        $configuration = new Configuration();
-        $config        = $this->processConfiguration($configuration, $configs);
+        $config = $this->processConfiguration($this->getConfiguration($configs, $container), $configs);
 
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader->load('services.yml');
 
-        if ('custom' !== $config['db_driver'])
-        {
-            $container->setParameter('abc.scheduler.backend_type_' . $config['db_driver'], true);
-        }
+        $cronExtensionDefinition = $container->register('abc.scheduler.extension.check_cron_expression', CheckCronExpressionExtension::class);
 
-        $loader->load('scheduler.xml');
-        $loader->load('processors.xml');
-        $loader->load('validator.xml');
+        $chainExtensionDefinition = $container->register('abc.scheduler.extension', ChainExtension::class);
+        $chainExtensionDefinition->setArguments([
+            [$cronExtensionDefinition]
+        ]);
 
-        $this->remapParametersNamespaces(
-            $config, $container, array(
-            '' => array(
-                'model_manager_name' => 'abc.scheduler.model_manager_name',
-                'schedule_class'     => 'abc.scheduler.model.schedule.class'
-            )
-        ));
+        $container->getDefinition('abc.scheduler')->setArguments([
+            $chainExtensionDefinition,
+            [],
+            new Reference('logger')
+        ]);
     }
 
-    /**
-     * @param array            $config
-     * @param ContainerBuilder $container
-     * @param array            $namespaces
-     */
-    protected function remapParametersNamespaces(array $config, ContainerBuilder $container, array $namespaces)
+    public function getConfiguration(array $config, ContainerBuilder $container): Configuration
     {
-        foreach ($namespaces as $ns => $map)
-        {
-            if ($ns)
-            {
-                if (!array_key_exists($ns, $config))
-                {
-                    continue;
-                }
-                $namespaceConfig = $config[$ns];
-            }
-            else
-            {
-                $namespaceConfig = $config;
-            }
-            if (is_array($map))
-            {
-                $this->remapParameters($namespaceConfig, $container, $map);
-            }
-            else
-            {
-                foreach ($namespaceConfig as $name => $value)
-                {
-                    $container->setParameter(sprintf($map, $name), $value);
-                }
-            }
-        }
+        $rc = new \ReflectionClass(Configuration::class);
 
-    }
+        $container->addResource(new FileResource($rc->getFileName()));
 
-
-    /**
-     * @param array            $config
-     * @param ContainerBuilder $container
-     * @param array            $map
-     */
-    protected function remapParameters(array $config, ContainerBuilder $container, array $map)
-    {
-        foreach ($map as $name => $paramName)
-        {
-            if (array_key_exists($name, $config))
-            {
-                $container->setParameter($paramName, $config[$name]);
-            }
-        }
+        return new Configuration($container->getParameter('kernel.debug'));
     }
 }

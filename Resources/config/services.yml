@@ -1,0 +1,10 @@
+services:
+    abc.scheduler:
+        class: Abc\Scheduler\Scheduler
+
+    abc.schedule_command:
+        class: Abc\Scheduler\Symfony\ScheduleCommand
+        arguments:
+            - '@abc.scheduler'
+        tags:
+            - { name: 'console.command' }

@@ -1,28 +1,35 @@
 {
-    "name": "aboutcoders/scheduler-bundle",
+    "name": "abc/scheduler-bundle",
     "type": "symfony-bundle",
-    "description": "A symfony bundle for scheduling",
-    "keywords": ["schedule", "scheduler", "cron", "bundle", "event"],
-    "homepage": "https://aboutcoders.com",
+    "description": "A symfony bundle to process schedules base on CRON expressions",
+    "keywords": ["cron", "schedule", "command"],
+    "homepage": "http://aboutcoders.com",
     "license": "MIT",
+    "authors": [
+        {
+            "name": "Hannes Schulz",
+            "email": "hannes.schulz@aboutcoders.com"
+        }
+    ],
     "require": {
-        "php": "^7.1",
-        "symfony/symfony": "~3.4",
-        "mtdowling/cron-expression": "~1.2"
+        "php": "^7.2",
+        "symfony/framework-bundle": "^3.4|^4",
+        "abc/scheduler": "dev-master"
     },
     "require-dev": {
-        "phpunit/phpunit": "~7",
-        "doctrine/orm": "~2.2,>=2.2.3",
-        "doctrine/doctrine-bundle": "~1.2",
-        "symfony/monolog-bundle": "~2",
-        "symfony/phpunit-bridge": "^3.0",
-        "aboutcoders/process-control": "~1.3"
-    },
-    "suggest": {
-        "aboutcoders/process-control-bundle": "Adds process control, requires ^1.0",
-        "aboutcoders/supervisor-bundle": "Manage supervisor processes, requires dev-master"
+        "phpunit/phpunit": "^7.0"
     },
     "autoload": {
-        "psr-4": { "Abc\\Bundle\\SchedulerBundle\\": "" }
-    }
+        "psr-4": { "Abc\\SchedulerBundle\\": "" },
+        "exclude-from-classmap": [
+            "/Tests/"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Abc\\SchedulerBundle\\Tests\\": "Tests/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
