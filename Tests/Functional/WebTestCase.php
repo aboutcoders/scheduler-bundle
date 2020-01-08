@@ -27,7 +27,7 @@ abstract class WebTestCase extends BaseWebTestCase
         static::$container = static::$container ?: static::$kernel->getContainer();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         static::$client = null;
         static::$kernel = null;
