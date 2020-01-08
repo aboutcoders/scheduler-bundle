@@ -1,0 +1,27 @@
+parameters:
+  locale: 'en'
+  secret: 'ThisTokenIsNotSoSecretChangeIt'
+
+framework:
+  #esi:             ~
+  #translator:      { fallback: "%locale%" }
+  test: ~
+  assets: false
+  templating: false
+  session:
+    storage_id: session.storage.mock_file
+  secret:          '%secret%'
+  router:          { resource: '%kernel.root_dir%/config/routing.yml' }
+  default_locale:  '%locale%'
+
+services:
+
+  abc.test.schedule_provider:
+    class: Abc\Scheduler\NullProvider
+    tags:
+      - { name: 'abc.scheduler.schedule_provider' }
+
+  abc.test.schedule_processor:
+    class: Abc\Scheduler\NullProcessor
+    tags:
+      - { name: 'abc.scheduler.schedule_processor', provider: 'abc.test.schedule_provider' }

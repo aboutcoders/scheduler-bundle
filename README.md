@@ -1,5 +1,7 @@
 # AbcSchedulerBundle
 
+[![Build Status](https://travis-ci.org/aboutcoders/scheduler-bundle.png?branch=2.0)](https://travis-ci.org/aboutcoders/scheduler-bundle)
+
 A Symfony bundle to process CRON based scheduling expressions.
 
 **Note: This project is still in an experimental phase!**
