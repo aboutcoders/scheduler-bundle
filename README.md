@@ -4,7 +4,7 @@
 
 A Symfony bundle to process CRON based scheduling expressions.
 
-**Note: This project is still in an experimental phase!**
+**Note: This project is still experimental!**
 
 ## Getting Started
 
@@ -63,6 +63,14 @@ A Symfony bundle to process CRON based scheduling expressions.
 	```bash
 	bin/console abc:schedule
 	```
+
+## Configuration Reference
+
+```yaml
+abc_scheduler:
+    extensions: 
+        signal_extension: true
+```
 
 ## License
 

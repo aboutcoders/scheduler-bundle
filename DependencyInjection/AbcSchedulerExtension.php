@@ -4,6 +4,8 @@ namespace Abc\SchedulerBundle\DependencyInjection;
 
 use Abc\Scheduler\ChainExtension;
 use Abc\Scheduler\Extension\CheckCronExpressionExtension;
+use Abc\Scheduler\Extension\SignalExtension;
+use Abc\Scheduler\Extension\SingleIterationExtension;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -20,18 +22,21 @@ class AbcSchedulerExtension extends Extension
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
 
-        $cronExtensionDefinition = $container->register('abc.scheduler.extension.check_cron_expression', CheckCronExpressionExtension::class);
+        $schedulerExtensionsDefinition = $container->register('abc.scheduler.extensions', ChainExtension::class)
+            ->addArgument([])
+        ;
 
-        $chainExtensionDefinition = $container->register('abc.scheduler.extension', ChainExtension::class);
-        $chainExtensionDefinition->setArguments([
-            [$cronExtensionDefinition]
-        ]);
+        $container->getDefinition('abc.scheduler')
+            ->setArguments([
+                $schedulerExtensionsDefinition,
+                [],
+                new Reference('logger'),
+            ])
+        ;
 
-        $container->getDefinition('abc.scheduler')->setArguments([
-            $chainExtensionDefinition,
-            [],
-            new Reference('logger')
-        ]);
+        $this->loadSingleIterationExtension($config, $container);
+        $this->loadSignalExtension($config, $container);
+        $this->loadCheckCronExtension($config, $container);
     }
 
     public function getConfiguration(array $config, ContainerBuilder $container): Configuration
@@ -41,5 +46,25 @@ class AbcSchedulerExtension extends Extension
         $container->addResource(new FileResource($rc->getFileName()));
 
         return new Configuration($container->getParameter('kernel.debug'));
+    }
+
+    private function loadSingleIterationExtension(array $config, ContainerBuilder $container): void
+    {
+        $extension = $container->register('abc.scheduler.single_iteration_extension', SingleIterationExtension::class);
+        $extension->addTag('abc.scheduler.extension');
+    }
+
+    private function loadCheckCronExtension(array $config, ContainerBuilder $container): void
+    {
+        $extension = $container->register('abc.scheduler.check_cron_expression_extension', CheckCronExpressionExtension::class);
+        $extension->addTag('abc.scheduler.extension');
+    }
+
+    private function loadSignalExtension(array $config, ContainerBuilder $container): void
+    {
+        if ($config['extensions']['signal_extension']) {
+            $extension = $container->register('abc.scheduler.signal_extension', SignalExtension::class);
+            $extension->addTag('abc.scheduler.extension');
+        }
     }
 }

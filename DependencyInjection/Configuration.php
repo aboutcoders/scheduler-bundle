@@ -24,6 +24,19 @@ final class Configuration implements ConfigurationInterface
             $rootNode = $tb->root('abc_scheduler');
         }
 
+        // @formatter:off
+        $rootNode
+            ->useAttributeAsKey('key')
+            ->arrayPrototype()
+            ->children()
+                ->arrayNode('extensions')->addDefaultsIfNotSet()->children()
+                    ->booleanNode('signal_extension')->defaultValue(function_exists('pcntl_signal_dispatch'))->end()
+                ->end()->end()
+            ->end()
+
+        ;
+        // @formatter:on
+
         return $tb;
     }
 }
