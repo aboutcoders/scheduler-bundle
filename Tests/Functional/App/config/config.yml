@@ -24,3 +24,7 @@ services:
     class: Abc\Scheduler\NullProcessor
     tags:
       - { name: 'abc.scheduler.schedule_processor', provider: 'abc.test.schedule_provider' }
+
+abc_scheduler:
+  extensions:
+    signal_extension: true
