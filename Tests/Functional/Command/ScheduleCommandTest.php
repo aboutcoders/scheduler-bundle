@@ -50,6 +50,6 @@ class ScheduleCommandTest extends KernelTestCase
         // the output of the command in the console
         $output = $commandTester->getDisplay();
 
-        $this->assertContains('Iterate over schedules of provider', $output);
+        $this->assertStringContainsString('Iterate over schedules of provider', $output);
     }
 }
